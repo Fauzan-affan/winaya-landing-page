@@ -1,0 +1,34 @@
+name: Deploy
+
+# Situs statis (HTML/CSS/JS murni, tanpa build step) — auto-deploy langsung
+# saat push ke main, tanpa gate CI seperti di repo hr-system (tidak ada
+# image/registry yang perlu ditunggu).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-winaya-landing
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy ke VPS (winaya.id)
+    runs-on: ubuntu-latest
+    steps:
+      # Key ini di-scope HANYA untuk menjalankan /usr/local/bin/deploy-winaya.sh
+      # di server (forced command lewat authorized_keys) — walau key ini bocor,
+      # yang bisa dilakukan penyerang cuma memicu git pull di /var/www/winaya.id,
+      # tidak ada akses shell bebas. Server yang sama juga menjalankan sistem HR
+      # produksi (hr.winaya.id) lewat cron reset data demo terpisah — workflow
+      # ini TIDAK menyentuh cron itu maupun stack Docker hr-system sama sekali.
+      - name: Trigger deploy script di VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: "true"
+          # `script` diabaikan oleh forced command di server, tapi appleboy/ssh-action
+          # tetap mensyaratkan field ini diisi.
