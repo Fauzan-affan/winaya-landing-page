@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Winaya: Aplikasi Absensi Karyawan Lapangan untuk Perusahaan Alih Daya | Beli Putus, Bukan Sewa</title>
+  <meta name="description" content="Software HR & absensi karyawan berbasis GPS untuk perusahaan outsourcing multi-site: security, cleaning, catering, tambang. Sistem HRIS sekali beli, tanpa biaya bulanan. Mulai Rp29 juta.">
+  <meta name="keywords" content="aplikasi hr, software hr, sistem hr, aplikasi hris, software hris indonesia, aplikasi absensi karyawan, software absensi online, aplikasi absensi gps, absensi karyawan lapangan, absensi outsourcing, aplikasi payroll, software payroll indonesia, aplikasi hr indonesia, sistem absensi perusahaan, aplikasi kehadiran karyawan, hr system perusahaan, software hrd, aplikasi hrd, sistem informasi sdm, absensi tanpa sinyal, absensi offline, absensi gps spoofing, aplikasi absensi multi lokasi, software hr sekali bayar, hris perpetual license, alternatif talenta, alternatif gadjian, alternatif kerjoo, aplikasi absensi security, aplikasi absensi cleaning service, absensi tambang, absensi migas, permenaker alih daya">
+  <link rel="canonical" href="https://winaya.id/">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="id">
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="images/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="images/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://winaya.id/">
+  <meta property="og:title" content="Winaya: Aplikasi Absensi Karyawan Lapangan untuk Perusahaan Alih Daya">
+  <meta property="og:description" content="Software HR & absensi GPS untuk tim multi-site. Beli sekali, bukan sewa bulanan. Mulai Rp29 juta.">
+  <meta property="og:image" content="https://winaya.id/images/hero-poster.jpg">
+  <meta property="og:image:secure_url" content="https://winaya.id/images/hero-poster.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="3840">
+  <meta property="og:image:height" content="2160">
+  <meta property="og:image:alt" content="Winaya: aplikasi absensi GPS untuk karyawan lapangan perusahaan outsourcing">
+  <meta property="og:locale" content="id_ID">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Winaya: Aplikasi Absensi Karyawan Lapangan">
+  <meta name="twitter:description" content="Software HR & absensi GPS untuk tim multi-site. Beli sekali, bukan sewa bulanan.">
+  <meta name="twitter:image" content="https://winaya.id/images/hero-poster.jpg">
+  <meta name="twitter:image:alt" content="Winaya: aplikasi absensi GPS untuk karyawan lapangan perusahaan outsourcing">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Winaya",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Android, iOS, Web",
+    "description": "Software absensi karyawan lapangan berbasis GPS untuk perusahaan alih daya multi-site di Indonesia, sistem HRIS sekali beli, tanpa biaya bulanan.",
+    "offers": {
+      "@type": "Offer",
+      "price": "29000000",
+      "priceCurrency": "IDR"
+    },
+    "inLanguage": "id-ID"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Winaya",
+    "url": "https://winaya.id/",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+62-813-1169-9123",
+      "contactType": "sales",
+      "availableLanguage": "id"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Apakah butuh sinyal internet terus-menerus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tidak. Clock-in tersimpan aman di device saat sinyal hilang, lalu otomatis sync begitu sinyal kembali, tanpa input ulang. Fitur antrian offline ini standar di semua tier, bukan add-on. Justru karena banyak lokasi klien alih daya (tambang, gudang, pos terpencil) tidak punya sinyal stabil, sistem ini dirancang offline-first dari awal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bagaimana kalau saya mau ganti aturan lembur di kemudian hari?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bisa. Aturan lembur, shift, dan cutoff rekap dikonfigurasi mengikuti kebijakan perusahaan Anda, dan karena source code diserahkan penuh, Anda bebas mengubahnya sendiri atau menyewa developer mana pun. Di tier Enterprise, 1 bulan setup langsung sudah mencakup hingga 5 perubahan aturan yang kami kerjakan."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Apa yang terjadi kalau server sendiri down?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Karyawan tetap bisa clock-in, mekanismenya sama seperti saat tidak ada sinyal: data mengantri di device dan sync begitu server kembali. Untuk pemulihan, tier Complete ke atas menyertakan prosedur pemulihan data di bawah 5 menit. Dan karena sistem jalan di server yang Anda kontrol sendiri, tidak ada pihak ketiga yang bisa mematikan layanan Anda."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Apakah source code benar-benar diserahkan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ya, source code dan dokumentasi lengkap diserahkan dengan lisensi perpetual di semua tier, disepakati tertulis sebelum pekerjaan dimulai. Anda bebas memodifikasi dan memelihara sendiri. Satu-satunya batasan: tidak boleh dijual ulang atau didistribusikan ke pihak lain."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Berapa lama proses onboarding?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Empat minggu ke demo pertama yang sudah dikonfigurasi dengan data Anda. Prosesnya: Anda kirim daftar karyawan dan lokasi (titik pin dari HP mana saja sudah cukup), kami konfigurasi aturan shift dan approval, lalu demo berjalan dengan data sungguhan, bukan mockup."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Apakah Winaya sudah termasuk payroll, pajak, dan BPJS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Belum, dan kami sebutkan ini terang-terangan di semua materi. Winaya berhenti di export Excel yang terformat dan siap diproses aplikasi payroll yang sudah Anda pakai. Proses payroll, pemotongan pajak, iuran BPJS, dan AI liveness/face recognition adalah keputusan cakupan yang disengaja supaya harga tetap masuk akal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bagaimana kalau ada bug atau butuh update di tahun kedua, apakah ada biaya support lanjutan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ini beli putus, bukan subscription, jadi tidak ada biaya support bulanan wajib yang otomatis jalan terus. Tier Enterprise sudah termasuk 1 bulan monitoring server plus dokumentasi SOP setelah go-live; di luar masa itu (dan di tier Essential/Complete sejak awal), karena source code sepenuhnya milik Anda, perbaikan bug atau penyesuaian bisa dikerjakan tim IT internal Anda, developer mana pun yang Anda percaya, atau tim kami secara terpisah kalau Anda memilih, dengan biaya yang dinegosiasikan sendiri sesuai scope, bukan biaya tersembunyi yang otomatis muncul di tagihan. Satu-satunya biaya rutin yang pasti ada, konsisten dengan perhitungan di atas, adalah hosting server: Rp1,2–3,7 juta per tahun. Winaya bukan software SaaS multi-tenant yang butuh patch terjadwal dari kami, jadi tidak ada ketergantungan siklus update yang memaksa Anda terus membayar kami untuk sekadar menjaga sistem tetap jalan."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <nav class="navbar-inner" aria-label="Navigasi utama">
+      <a href="#hero" class="nav-logo" aria-label="Winaya, beranda">Winaya<span class="logo-dot">.</span></a>
+      <div class="nav-links">
+        <a href="#fitur" class="nav-link" title="Fitur Absensi GPS">Fitur</a>
+        <a href="#perbandingan-biaya" class="nav-link" title="Perbandingan Biaya Software HR">Biaya</a>
+        <a href="#harga" class="nav-link" title="Harga Software HR Sekali Bayar">Harga</a>
+      </div>
+      <a href="https://wa.me/6281311699123?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis%20tentang%20Winaya%20untuk%20perusahaan%20saya."
+         class="btn btn-primary btn-nav" target="_blank" rel="noopener">Konsultasi Gratis</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============ 4.1 HERO: VIDEO MULTI-SCENE ============ -->
+    <section class="hero" id="hero" aria-label="Software absensi karyawan lapangan Winaya">
+      <div class="hero-video-stack" aria-hidden="true">
+        <video class="hero-video is-active" id="hero-video-1" autoplay muted loop playsinline preload="metadata"
+               poster="images/hero-poster.jpg" aria-label="Video suasana kantor, aplikasi absensi karyawan lapangan Winaya">
+          <source src="videos/hero-scene-1.mp4" type="video/mp4">
+        </video>
+        <video class="hero-video" id="hero-video-2" muted loop playsinline preload="metadata"
+               poster="images/hero-poster.jpg">
+          <source src="videos/hero-scene-2.mp4" type="video/mp4">
+        </video>
+        <video class="hero-video" id="hero-video-3" muted loop playsinline preload="metadata"
+               poster="images/hero-poster.jpg">
+          <source src="videos/hero-scene-3.mp4" type="video/mp4">
+        </video>
+        <img class="hero-poster-fallback" src="images/hero-poster.jpg"
+             alt="Aplikasi absensi GPS untuk karyawan lapangan perusahaan outsourcing multi-site">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="hero-content hero-content-split">
+        <div class="hero-text">
+          <span class="hero-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m6.8 6.8-2.8-2.8"/><path d="M2 12h4"/><path d="m6.8 17.2-2.8 2.8"/><path d="M12 18v4"/><path d="m17.2 17.2 2.8 2.8"/><path d="M18 12h4"/><path d="m17.2 6.8 2.8-2.8"/></svg>
+            AI-Powered
+          </span>
+          <p class="eyebrow">Absensi Lapangan untuk Tim Multi-Site</p>
+          <h1>Software Absensi Karyawan Lapangan</h1>
+          <p class="hero-sub">Berhenti mengejar absensi tim di puluhan lokasi.</p>
+          <ul class="hero-benefits">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Clock-in GPS + selfie, terverifikasi bahkan <strong>tanpa sinyal internet</strong></span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Terpantau real-time lewat peta, review beres dalam hitungan menit</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Tidak ada lagi tagihan per user, per bulan, per tahun</span>
+            </li>
+          </ul>
+          <p class="hero-price">Mulai <strong>Rp <span class="count-num" data-target="29000000">0</span></strong>, sekali bayar.</p>
+          <div class="hero-cta-row">
+            <a href="https://wa.me/6281311699123?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis%20tentang%20Winaya%20untuk%20perusahaan%20saya."
+               class="btn btn-primary btn-lg" target="_blank" rel="noopener">Konsultasi Gratis</a>
+            <a href="https://hr.winaya.id/login" class="btn btn-outline btn-lg" target="_blank" rel="noopener">Coba Gratis!</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="phone-mockup" aria-hidden="true">
+            <span class="phone-btn phone-btn-mute"></span>
+            <span class="phone-btn phone-btn-vol-up"></span>
+            <span class="phone-btn phone-btn-vol-down"></span>
+            <span class="phone-btn phone-btn-power"></span>
+            <div class="phone-screen">
+              <span class="phone-dynamic-island"></span>
+
+              <div class="phone-topbar">
+                <span>07.52</span>
+                <span class="phone-status-icons" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M2 22h20V2z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="6.5" rx="2"/><path d="M22 10v4"/></svg>
+                </span>
+              </div>
+
+              <div class="phone-greet">
+                <div>
+                  <p class="phone-greet-label">Selamat pagi</p>
+                  <p class="phone-redact-bar phone-redact-name" role="img" aria-label="Nama karyawan disensor"></p>
+                  <p class="phone-greet-sub"><span class="phone-redact-bar phone-redact-nik" role="img" aria-label="NIK disensor"></span> · Site Utama</p>
+                </div>
+                <span class="phone-badge-high">HIGH</span>
+              </div>
+
+              <div class="phone-shift-card">
+                <p class="phone-shift-label">SHIFT HARI INI</p>
+                <div class="phone-shift-row">
+                  <div>
+                    <p class="phone-shift-title">Shift 1</p>
+                    <p class="phone-shift-time">06.00–18.00 · lembur mulai 18.00</p>
+                  </div>
+                  <div class="phone-shift-masuk">
+                    <span>Masuk</span>
+                    <span class="phone-dash">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="phone-clockin">
+                <div class="phone-clockin-circle">
+                  <span>Clock In</span>
+                  <small>Ketuk untuk mulai</small>
+                </div>
+              </div>
+
+              <div class="phone-radius-pill">
+                <span class="dot"></span> Dalam radius Site Utama · ±8 m
+              </div>
+
+              <div class="phone-mini-cards">
+                <div>
+                  <strong>Cuti</strong>
+                  <span>sisa 11 hari</span>
+                </div>
+                <div>
+                  <strong>Lembur</strong>
+                  <span class="phone-redact-bar phone-redact-rate" role="img" aria-label="Tarif lembur disensor"></span>
+                </div>
+                <div>
+                  <strong>Reimburse</strong>
+                  <span>struk wajib</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="hero-feature-chips">
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>GPS + Selfie</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lembur</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg>Cuti & Izin</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>Reimbursement</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Approval Workflow</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/></svg>Rekap Otomatis</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Manajemen Shift</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M15 2v5h5"/><path d="M10 12h4"/><path d="M10 16h4"/></svg>Export Excel</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3.6-3 BARIS STATISTIK ============ -->
+    <section class="stats-bar" aria-label="Statistik kunci">
+      <div class="container stats-grid">
+        <div class="stat">
+          <p class="stat-number">Rp<span class="count-num" data-target="200">0</span>&ndash;<span class="count-num" data-target="400">0</span>jt</p>
+          <p class="stat-label">biaya bikin sistem serupa dari nol</p>
+        </div>
+        <div class="stat">
+          <p class="stat-number"><span class="count-num" data-target="4">0</span> minggu</p>
+          <p class="stat-label">ke demo pertama yang sudah dikonfigurasi</p>
+        </div>
+        <div class="stat">
+          <p class="stat-number">Rp<span class="count-num" data-target="29">0</span>jt</p>
+          <p class="stat-label">harga mulai, sekali bayar</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4.5 PERBANDINGAN BIAYA (CHART) ============ -->
+    <section class="section section-light" id="perbandingan-biaya">
+      <div class="container">
+        <p class="eyebrow">Perbandingan Biaya</p>
+        <h2>Perbandingan Biaya Software Absensi: Beli Sekali vs Langganan Bulanan</h2>
+        <div class="split-2col split-chart">
+          <div class="chart-text">
+            <p>
+              Seperti sewa vs beli rumah: subscription <strong>Rp23,01 juta/tahun</strong> tanpa henti, Winaya
+              <strong>Rp48,68 juta</strong> di tahun pertama lalu tinggal <strong>Rp3,68 juta/tahun</strong> untuk hosting.
+            </p>
+            <p>
+              Bikin aplikasi absensi sekarang bisa dilakukan siapa saja pakai AI, tapi AI tidak otomatis paham aturan
+              operasional Anda. Winaya berangkat dari sistem teruji, lalu dikonfigurasi mengikuti aturan Anda, bukan
+              dibangun dari nol.
+            </p>
+            <div class="stat-inline">
+              <p class="stat-number stat-number-warn">
+                <svg class="stat-trend-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                Rp <span class="count-num" data-target="19">0</span> jt/tahun
+              </p>
+              <p class="stat-label">Selisih biaya yang terus bertambah setiap tahun karena biaya langganan tidak pernah berhenti</p>
+            </div>
+          </div>
+          <div class="chart-wrap dot-grid">
+            <canvas id="costChart" role="img" aria-label="Grafik batang perbandingan biaya tahunan software absensi: subscription Rp23,01 juta per tahun vs Winaya Rp48,68 juta di tahun pertama lalu Rp3,68 juta per tahun berikutnya"></canvas>
+            <p class="footnote">
+              Ilustrasi untuk tim 100 orang. Harga subscription mengacu ke tier tertinggi Kerjoo (Rp19.175/karyawan/bln,
+              termasuk fitur absensi offline), harga publik per Agustus 2026.
+            </p>
+          </div>
+        </div>
+
+        <div class="modul-group">
+          <h3 class="modul-group-title">Winaya sebagai Alternatif Kerjoo, Talenta, dan Software HR Langganan Lain</h3>
+          <div class="table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th scope="col">Dimensi</th>
+                  <th scope="col">Talenta (Mekari)</th>
+                  <th scope="col">Kerjoo</th>
+                  <th scope="col">Gadjian / Hadirr</th>
+                  <th scope="col">BroHR / Custom-Built</th>
+                  <th scope="col" class="col-winaya">Winaya</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Model harga</th>
+                  <td>Per karyawan, bulanan (tier Essential/Plus/360)</td>
+                  <td>Per karyawan, bulanan</td>
+                  <td>Per karyawan + add-on</td>
+                  <td>Harga tertutup / proyek</td>
+                  <td class="col-winaya">Beli sekali (one-time)</td>
+                </tr>
+                <tr>
+                  <th scope="row">Harga publik</th>
+                  <td>Tidak diumumkan · hubungi sales</td>
+                  <td>Rp7.800–19.175/karyawan/bln</td>
+                  <td>Rp12.500 + Rp1.500 liveness (Hadirr)</td>
+                  <td>Tidak diumumkan · custom Rp200–400jt</td>
+                  <td class="col-winaya">Rp29–75jt, sekali bayar</td>
+                </tr>
+                <tr>
+                  <th scope="row">Absensi offline</th>
+                  <td>Ya, mode darurat</td>
+                  <td>Hanya tier tertinggi</td>
+                  <td>Ya (Hadirr)</td>
+                  <td>Bervariasi</td>
+                  <td class="col-winaya">Standar, semua tier</td>
+                </tr>
+                <tr>
+                  <th scope="row">Pengecekan fraud sisi server</th>
+                  <td>AI liveness (khusus tier Talenta 360)</td>
+                  <td>Tidak diumumkan</td>
+                  <td>Tidak diumumkan</td>
+                  <td>Tidak diumumkan</td>
+                  <td class="col-winaya">8 pengecekan otomatis</td>
+                </tr>
+                <tr>
+                  <th scope="row">Log approval anti-tamper</th>
+                  <td>Tidak diumumkan</td>
+                  <td>Tidak diumumkan</td>
+                  <td>Tidak diumumkan</td>
+                  <td>Tidak diumumkan</td>
+                  <td class="col-winaya">Ya, bahkan untuk admin</td>
+                </tr>
+                <tr>
+                  <th scope="row">Kepemilikan source code</th>
+                  <td>Tidak</td>
+                  <td>Tidak</td>
+                  <td>Tidak</td>
+                  <td>BroHR: tidak · SH: jika dinegosiasikan</td>
+                  <td class="col-winaya">Ya, lisensi perpetual</td>
+                </tr>
+                <tr>
+                  <th scope="row">Payroll / pajak / BPJS</th>
+                  <td>Ya</td>
+                  <td>Ya</td>
+                  <td>Ya</td>
+                  <td>Ya</td>
+                  <td class="col-winaya">Belum, keputusan cakupan</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="footnote">
+            Harga sebagaimana dipublikasikan di halaman resmi masing-masing vendor, Agustus 2026. Talenta tidak
+            mempublikasikan harga per karyawan secara terbuka, hanya lewat kontak sales. Hadirr adalah produk
+            Fast8, satu ekosistem dengan Gadjian, bukan bagian dari Talenta (Mekari); dua produk ini berbeda perusahaan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4.6 TIGA DETAIL ============ -->
+    <section class="section section-navy" id="fitur">
+      <div class="container">
+        <p class="eyebrow">Fitur Utama</p>
+        <h2>Fitur Aplikasi Absensi GPS Ini yang Benar-Benar Terasa di Lapangan</h2>
+      </div>
+
+      <div class="fitur-marquee">
+        <div class="fitur-track">
+          <!-- set 1 -->
+          <article class="fitur-card">
+            <div class="fitur-illustration" aria-hidden="true">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="bgA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A2420"/><stop offset="1" stop-color="#0C0F0D"/></linearGradient>
+                  <radialGradient id="glowA" cx="50%" cy="42%" r="55%"><stop offset="0" stop-color="#6FB25A" stop-opacity="0.35"/><stop offset="1" stop-color="#6FB25A" stop-opacity="0"/></radialGradient>
+                </defs>
+                <rect width="320" height="170" fill="url(#bgA)"/>
+                <rect width="320" height="170" fill="url(#glowA)"/>
+                <g opacity="0.5"><circle cx="20" cy="20" r="1" fill="#fff"/><circle cx="40" cy="20" r="1" fill="#fff"/><circle cx="60" cy="20" r="1" fill="#fff"/><circle cx="20" cy="40" r="1" fill="#fff"/><circle cx="40" cy="40" r="1" fill="#fff"/><circle cx="280" cy="150" r="1" fill="#fff"/><circle cx="300" cy="150" r="1" fill="#fff"/><circle cx="280" cy="130" r="1" fill="#fff"/></g>
+                <rect x="130" y="40" width="60" height="100" rx="12" fill="#0F1512" stroke="#8FD673" stroke-width="2"/>
+                <rect x="138" y="52" width="44" height="66" rx="3" fill="#182420"/>
+                <path d="M148 78 l8 8 16-16" fill="none" stroke="#8FD673" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <g stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.85">
+                  <path d="M95 60 a24 24 0 0 1 34-8" fill="none"/>
+                  <path d="M95 78 a24 24 0 0 1 12-30" fill="none"/>
+                </g>
+                <line x1="82" y1="48" x2="118" y2="90" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="225" cy="70" r="16" fill="none" stroke="#6FB25A" stroke-width="2" opacity="0.8"/>
+                <path d="M218 70 l5 5 10-10" fill="none" stroke="#8FD673" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>Bekerja Tanpa Sinyal</h3>
+              <p>Absensi offline tanpa sinyal: clock-in tersimpan aman di device dan otomatis sync begitu sinyal kembali.</p>
+            </div>
+          </article>
+
+          <article class="fitur-card">
+            <div class="fitur-illustration" aria-hidden="true">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="bgB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A2420"/><stop offset="1" stop-color="#0C0F0D"/></linearGradient>
+                  <radialGradient id="glowB" cx="50%" cy="42%" r="55%"><stop offset="0" stop-color="#6FB25A" stop-opacity="0.35"/><stop offset="1" stop-color="#6FB25A" stop-opacity="0"/></radialGradient>
+                </defs>
+                <rect width="320" height="170" fill="url(#bgB)"/>
+                <rect width="320" height="170" fill="url(#glowB)"/>
+                <g opacity="0.5"><circle cx="20" cy="150" r="1" fill="#fff"/><circle cx="40" cy="150" r="1" fill="#fff"/><circle cx="300" cy="20" r="1" fill="#fff"/><circle cx="280" cy="20" r="1" fill="#fff"/><circle cx="300" cy="40" r="1" fill="#fff"/></g>
+                <circle cx="160" cy="85" r="46" fill="none" stroke="#243530" stroke-width="10"/>
+                <circle cx="160" cy="85" r="46" fill="none" stroke="#8FD673" stroke-width="10" stroke-linecap="round" stroke-dasharray="222 289" transform="rotate(-90 160 85)"/>
+                <text x="160" y="94" text-anchor="middle" font-family="Poppins, sans-serif" font-size="30" font-weight="700" fill="#F5F8F6">90</text>
+                <rect x="205" y="112" width="46" height="34" rx="6" fill="#0F1512" stroke="#6FB25A" stroke-width="2"/>
+                <circle cx="228" cy="129" r="9" fill="none" stroke="#8FD673" stroke-width="2.5"/>
+                <rect x="216" y="106" width="12" height="8" rx="2" fill="#0F1512" stroke="#6FB25A" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>Kode yang Kedaluwarsa dalam 90 Detik</h3>
+              <p>Setiap foto membawa kode verifikasi sekali-pakai dari server kami, berlaku 90 detik, satu kali pakai.</p>
+            </div>
+          </article>
+
+          <article class="fitur-card">
+            <div class="fitur-illustration" aria-hidden="true">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="bgC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A2420"/><stop offset="1" stop-color="#0C0F0D"/></linearGradient>
+                  <radialGradient id="glowC" cx="50%" cy="42%" r="55%"><stop offset="0" stop-color="#6FB25A" stop-opacity="0.35"/><stop offset="1" stop-color="#6FB25A" stop-opacity="0"/></radialGradient>
+                </defs>
+                <rect width="320" height="170" fill="url(#bgC)"/>
+                <rect width="320" height="170" fill="url(#glowC)"/>
+                <g stroke="#2A3A34" stroke-width="2" fill="none" opacity="0.9">
+                  <path d="M20 40 C90 20,110 90,180 70 S 260 30,300 55"/>
+                  <path d="M40 140 C100 120,150 150,210 120 S 280 100,300 120"/>
+                </g>
+                <circle cx="120" cy="65" r="5" fill="#6FB25A" opacity="0.7"/>
+                <circle cx="230" cy="110" r="5" fill="#6FB25A" opacity="0.7"/>
+                <g transform="translate(158,58)">
+                  <path d="M0 0 C-16 0 -26 12 -26 26 C-26 44 0 66 0 66 C0 66 26 44 26 26 C26 12 16 0 0 0 Z" fill="#8FD673"/>
+                  <circle cx="0" cy="24" r="9" fill="#0C0F0D"/>
+                </g>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>Setiap Clock-In, di Peta Live</h3>
+              <p>HRD melihat hari berjalan lewat peta: siapa clock-in, di mana, dan apakah cocok dengan lokasi yang ditugaskan.</p>
+            </div>
+          </article>
+
+          <article class="fitur-card">
+            <div class="fitur-illustration" aria-hidden="true">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A2420"/><stop offset="1" stop-color="#0C0F0D"/></linearGradient>
+                  <radialGradient id="glowD" cx="50%" cy="42%" r="55%"><stop offset="0" stop-color="#6FB25A" stop-opacity="0.35"/><stop offset="1" stop-color="#6FB25A" stop-opacity="0"/></radialGradient>
+                </defs>
+                <rect width="320" height="170" fill="url(#bgD)"/>
+                <rect width="320" height="170" fill="url(#glowD)"/>
+                <g fill="#8FD673" opacity="0.85">
+                  <circle cx="160" cy="30" r="3.5"/><circle cx="196" cy="40" r="3.5"/><circle cx="220" cy="65" r="3.5"/>
+                  <circle cx="228" cy="100" r="3.5"/><circle cx="210" cy="130" r="3.5"/><circle cx="175" cy="146" r="3.5"/>
+                  <circle cx="140" cy="140" r="3.5"/><circle cx="105" cy="115" r="3.5"/>
+                </g>
+                <path d="M160 55 C138 55 128 70 128 85 L128 105 C128 122 145 132 160 138 C175 132 192 122 192 105 L192 85 C192 70 182 55 160 55 Z" fill="#0F1512" stroke="#6FB25A" stroke-width="2.5"/>
+                <path d="M144 92 l12 12 22-22" fill="none" stroke="#8FD673" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>8 Pengecekan Otomatis di Setiap Clock-In</h3>
+              <p>Perjalanan tidak wajar antar dua check-in, koordinat identik yang berulang, HP berbeda di tengah shift, dan 5 pengecekan lainnya, dijalankan diam-diam di server kami.</p>
+            </div>
+          </article>
+
+          <article class="fitur-card">
+            <div class="fitur-illustration" aria-hidden="true">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="bgE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A2420"/><stop offset="1" stop-color="#0C0F0D"/></linearGradient>
+                  <radialGradient id="glowE" cx="50%" cy="42%" r="55%"><stop offset="0" stop-color="#6FB25A" stop-opacity="0.35"/><stop offset="1" stop-color="#6FB25A" stop-opacity="0"/></radialGradient>
+                </defs>
+                <rect width="320" height="170" fill="url(#bgE)"/>
+                <rect width="320" height="170" fill="url(#glowE)"/>
+                <rect x="110" y="28" width="80" height="100" rx="6" fill="#0F1512" stroke="#3A4A44" stroke-width="2"/>
+                <line x1="122" y1="46" x2="178" y2="46" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+                <line x1="122" y1="60" x2="178" y2="60" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+                <line x1="122" y1="74" x2="160" y2="74" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+                <line x1="122" y1="96" x2="178" y2="96" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+                <line x1="122" y1="110" x2="160" y2="110" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+                <g transform="translate(178,88)">
+                  <rect x="-24" y="8" width="48" height="36" rx="8" fill="#0C0F0D" stroke="#8FD673" stroke-width="2.5"/>
+                  <path d="M-14 8 v-12 a14 14 0 0 1 28 0 v12" fill="none" stroke="#8FD673" stroke-width="3.5"/>
+                  <circle cx="0" cy="26" r="5" fill="#8FD673"/>
+                </g>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>Log Persetujuan yang Tidak Bisa Diam-Diam Diedit</h3>
+              <p>Setiap approval, penolakan, dan koreksi disimpan permanen persis seperti kejadiannya, termasuk yang dilakukan admin.</p>
+            </div>
+          </article>
+
+          <!-- set 2 (duplikat untuk loop mulus) -->
+          <article class="fitur-card" aria-hidden="true">
+            <div class="fitur-illustration">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="170" fill="url(#bgA)"/>
+                <rect width="320" height="170" fill="url(#glowA)"/>
+                <rect x="130" y="40" width="60" height="100" rx="12" fill="#0F1512" stroke="#8FD673" stroke-width="2"/>
+                <rect x="138" y="52" width="44" height="66" rx="3" fill="#182420"/>
+                <path d="M148 78 l8 8 16-16" fill="none" stroke="#8FD673" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <g stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.85">
+                  <path d="M95 60 a24 24 0 0 1 34-8" fill="none"/>
+                  <path d="M95 78 a24 24 0 0 1 12-30" fill="none"/>
+                </g>
+                <line x1="82" y1="48" x2="118" y2="90" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="225" cy="70" r="16" fill="none" stroke="#6FB25A" stroke-width="2" opacity="0.8"/>
+                <path d="M218 70 l5 5 10-10" fill="none" stroke="#8FD673" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>Bekerja Tanpa Sinyal</h3>
+              <p>Absensi offline tanpa sinyal: clock-in tersimpan aman di device dan otomatis sync begitu sinyal kembali.</p>
+            </div>
+          </article>
+
+          <article class="fitur-card" aria-hidden="true">
+            <div class="fitur-illustration">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="170" fill="url(#bgB)"/>
+                <rect width="320" height="170" fill="url(#glowB)"/>
+                <circle cx="160" cy="85" r="46" fill="none" stroke="#243530" stroke-width="10"/>
+                <circle cx="160" cy="85" r="46" fill="none" stroke="#8FD673" stroke-width="10" stroke-linecap="round" stroke-dasharray="222 289" transform="rotate(-90 160 85)"/>
+                <text x="160" y="94" text-anchor="middle" font-family="Poppins, sans-serif" font-size="30" font-weight="700" fill="#F5F8F6">90</text>
+                <rect x="205" y="112" width="46" height="34" rx="6" fill="#0F1512" stroke="#6FB25A" stroke-width="2"/>
+                <circle cx="228" cy="129" r="9" fill="none" stroke="#8FD673" stroke-width="2.5"/>
+                <rect x="216" y="106" width="12" height="8" rx="2" fill="#0F1512" stroke="#6FB25A" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>Kode yang Kedaluwarsa dalam 90 Detik</h3>
+              <p>Setiap foto membawa kode verifikasi sekali-pakai dari server kami, berlaku 90 detik, satu kali pakai.</p>
+            </div>
+          </article>
+
+          <article class="fitur-card" aria-hidden="true">
+            <div class="fitur-illustration">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="170" fill="url(#bgC)"/>
+                <rect width="320" height="170" fill="url(#glowC)"/>
+                <g stroke="#2A3A34" stroke-width="2" fill="none" opacity="0.9">
+                  <path d="M20 40 C90 20,110 90,180 70 S 260 30,300 55"/>
+                  <path d="M40 140 C100 120,150 150,210 120 S 280 100,300 120"/>
+                </g>
+                <circle cx="120" cy="65" r="5" fill="#6FB25A" opacity="0.7"/>
+                <circle cx="230" cy="110" r="5" fill="#6FB25A" opacity="0.7"/>
+                <g transform="translate(158,58)">
+                  <path d="M0 0 C-16 0 -26 12 -26 26 C-26 44 0 66 0 66 C0 66 26 44 26 26 C26 12 16 0 0 0 Z" fill="#8FD673"/>
+                  <circle cx="0" cy="24" r="9" fill="#0C0F0D"/>
+                </g>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>Setiap Clock-In, di Peta Live</h3>
+              <p>HRD melihat hari berjalan lewat peta: siapa clock-in, di mana, dan apakah cocok dengan lokasi yang ditugaskan.</p>
+            </div>
+          </article>
+
+          <article class="fitur-card" aria-hidden="true">
+            <div class="fitur-illustration">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="170" fill="url(#bgD)"/>
+                <rect width="320" height="170" fill="url(#glowD)"/>
+                <g fill="#8FD673" opacity="0.85">
+                  <circle cx="160" cy="30" r="3.5"/><circle cx="196" cy="40" r="3.5"/><circle cx="220" cy="65" r="3.5"/>
+                  <circle cx="228" cy="100" r="3.5"/><circle cx="210" cy="130" r="3.5"/><circle cx="175" cy="146" r="3.5"/>
+                  <circle cx="140" cy="140" r="3.5"/><circle cx="105" cy="115" r="3.5"/>
+                </g>
+                <path d="M160 55 C138 55 128 70 128 85 L128 105 C128 122 145 132 160 138 C175 132 192 122 192 105 L192 85 C192 70 182 55 160 55 Z" fill="#0F1512" stroke="#6FB25A" stroke-width="2.5"/>
+                <path d="M144 92 l12 12 22-22" fill="none" stroke="#8FD673" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>8 Pengecekan Otomatis di Setiap Clock-In</h3>
+              <p>Perjalanan tidak wajar antar dua check-in, koordinat identik yang berulang, HP berbeda di tengah shift, dan 5 pengecekan lainnya, dijalankan diam-diam di server kami.</p>
+            </div>
+          </article>
+
+          <article class="fitur-card" aria-hidden="true">
+            <div class="fitur-illustration">
+              <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="170" fill="url(#bgE)"/>
+                <rect width="320" height="170" fill="url(#glowE)"/>
+                <rect x="110" y="28" width="80" height="100" rx="6" fill="#0F1512" stroke="#3A4A44" stroke-width="2"/>
+                <line x1="122" y1="46" x2="178" y2="46" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+                <line x1="122" y1="60" x2="178" y2="60" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+                <line x1="122" y1="74" x2="160" y2="74" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+                <line x1="122" y1="96" x2="178" y2="96" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+                <line x1="122" y1="110" x2="160" y2="110" stroke="#EAF0EC" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+                <g transform="translate(178,88)">
+                  <rect x="-24" y="8" width="48" height="36" rx="8" fill="#0C0F0D" stroke="#8FD673" stroke-width="2.5"/>
+                  <path d="M-14 8 v-12 a14 14 0 0 1 28 0 v12" fill="none" stroke="#8FD673" stroke-width="3.5"/>
+                  <circle cx="0" cy="26" r="5" fill="#8FD673"/>
+                </g>
+              </svg>
+            </div>
+            <div class="fitur-card-body">
+              <h3>Log Persetujuan yang Tidak Bisa Diam-Diam Diedit</h3>
+              <p>Setiap approval, penolakan, dan koreksi disimpan permanen persis seperti kejadiannya, termasuk yang dilakukan admin.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4.10 KEPEMILIKAN ============ -->
+    <section class="section section-navy" id="kepemilikan">
+      <div class="container">
+        <p class="eyebrow">Kepemilikan</p>
+        <h2>Yang Berpindah Tangan Bukan Lisensi, Tapi Software-nya Itu Sendiri</h2>
+        <p class="section-intro">
+          Inilah arti software HR beli putus dengan source code HRIS diserahkan penuh:
+        </p>
+        <ul class="check-list">
+          <li>
+            <span class="check" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div><strong>Source code & dokumentasi lengkap</strong>, milik Anda selamanya, bukan dilisensikan bulan per bulan.</div>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div><strong>Hak pakai perpetual</strong>, tanpa biaya per-seat, tanpa perpanjangan, tanpa tanggal kedaluwarsa. HRIS perpetual license dalam arti sebenarnya.</div>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div><strong>Bebas modifikasi atau menyewa siapa pun untuk maintain</strong>, Anda tidak pernah bergantung pada satu vendor.</div>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div><strong>Jalan di server yang Anda kontrol sendiri</strong>, tidak ada pihak lain yang bisa menghentikan layanan atau menaikkan harga di kemudian hari.</div>
+          </li>
+        </ul>
+        <p class="ownership-note">Satu-satunya batasan: software tidak boleh dijual ulang atau didistribusikan ke pihak lain.</p>
+      </div>
+    </section>
+
+    <!-- ============ 4.11 HARGA: 3 TIER ============ -->
+    <section class="section section-light" id="harga">
+      <div class="container">
+        <p class="eyebrow">Harga</p>
+        <h2>Harga Software HR Sekali Bayar: Tiga Tier, Semua Termasuk Source Code</h2>
+        <p class="section-intro">
+          Setiap tier sudah termasuk HRD dashboard, approval workflow, dan full source code dengan lisensi perpetual.
+          Aplikasi HR tanpa biaya bulanan, yang tersisa setelah pembelian hanya hosting di server Anda sendiri.
+        </p>
+        <div class="pricing-grid">
+          <article class="card pricing-card">
+            <h3>ESSENTIAL</h3>
+            <p class="price">Rp <span class="count-num" data-target="29000000">0</span></p>
+            <p class="price-note">sekali bayar</p>
+            <ul class="feature-list">
+              <li>Android saja</li>
+              <li>GPS + selfie attendance bertimestamp</li>
+              <li>Pengajuan lembur, cuti, dan reimbursement</li>
+              <li>HRD dashboard & approval workflow</li>
+              <li>Rekap bulanan + export Excel</li>
+              <li>Penolakan otomatis aplikasi GPS-spoofing</li>
+              <li>Antrian offline saat sinyal hilang</li>
+            </ul>
+            <a href="https://wa.me/6281311699123?text=Halo%2C%20saya%20tertarik%20dengan%20Winaya%20tier%20ESSENTIAL%20(Rp29jt).%20Bisa%20jadwalkan%20konsultasi%3F"
+               class="btn btn-outline-dark btn-block" target="_blank" rel="noopener">Pilih Essential</a>
+          </article>
+          <article class="card pricing-card pricing-featured">
+            <p class="badge">PALING DIREKOMENDASIKAN</p>
+            <h3>COMPLETE</h3>
+            <p class="price">Rp <span class="count-num" data-target="45000000">0</span></p>
+            <p class="price-note">sekali bayar</p>
+            <ul class="feature-list">
+              <li>Semua di Essential</li>
+              <li>Akses iPhone termasuk</li>
+              <li>8 pengecekan anomali otomatis</li>
+              <li>Peta absensi harian</li>
+              <li>Log approval permanen anti-tamper</li>
+              <li>Pemulihan data di bawah 5 menit</li>
+            </ul>
+            <a href="https://wa.me/6281311699123?text=Halo%2C%20saya%20tertarik%20dengan%20Winaya%20tier%20COMPLETE%20(Rp45jt).%20Bisa%20jadwalkan%20konsultasi%3F"
+               class="btn btn-primary btn-block" target="_blank" rel="noopener">Pilih Complete</a>
+          </article>
+          <article class="card pricing-card">
+            <h3>ENTERPRISE</h3>
+            <p class="price">Rp <span class="count-num" data-target="75000000">0</span></p>
+            <p class="price-note">sekali bayar</p>
+            <ul class="feature-list">
+              <li>Semua di Complete</li>
+              <li>Dibangun untuk pertumbuhan multi-site</li>
+              <li>Dashboard analitik & tren</li>
+              <li>Dukungan multi-entitas perusahaan</li>
+              <li>1 bulan setup langsung (hingga 5 perubahan aturan)</li>
+              <li>Training lanjutan + dokumentasi SOP</li>
+              <li>1 bulan monitoring server</li>
+            </ul>
+            <a href="https://wa.me/6281311699123?text=Halo%2C%20saya%20tertarik%20dengan%20Winaya%20tier%20ENTERPRISE%20(Rp75jt).%20Bisa%20jadwalkan%20konsultasi%3F"
+               class="btn btn-outline-dark btn-block" target="_blank" rel="noopener">Pilih Enterprise</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ (3.6-9) ============ -->
+    <section class="section section-cream" id="faq">
+      <div class="container container-narrow">
+        <p class="eyebrow">FAQ</p>
+        <h2>Pertanyaan yang Paling Sering Ditanyakan soal Sistem Absensi Perusahaan Ini</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Apakah butuh sinyal internet terus-menerus?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Tidak. Clock-in tersimpan aman di device saat sinyal hilang, lalu otomatis sync begitu sinyal kembali,
+                tanpa input ulang. Fitur antrian offline ini standar di semua tier, bukan add-on. Justru karena banyak
+                lokasi klien alih daya (tambang, gudang, pos terpencil) tidak punya sinyal stabil, sistem ini dirancang
+                offline-first dari awal.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Bagaimana kalau saya mau ganti aturan lembur di kemudian hari?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Bisa. Aturan lembur, shift, dan cutoff rekap dikonfigurasi mengikuti kebijakan perusahaan Anda, dan
+                karena source code diserahkan penuh, Anda bebas mengubahnya sendiri atau menyewa developer mana pun.
+                Di tier Enterprise, 1 bulan setup langsung sudah mencakup hingga 5 perubahan aturan yang kami kerjakan.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Apa yang terjadi kalau server sendiri down?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Karyawan tetap bisa clock-in, mekanismenya sama seperti saat tidak ada sinyal: data mengantri di device
+                dan sync begitu server kembali. Untuk pemulihan, tier Complete ke atas menyertakan prosedur pemulihan
+                data di bawah 5 menit. Dan karena sistem jalan di server yang Anda kontrol sendiri, tidak ada pihak
+                ketiga yang bisa mematikan layanan Anda.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Apakah source code benar-benar diserahkan?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Ya, source code dan dokumentasi lengkap diserahkan dengan lisensi perpetual di semua tier, disepakati
+                tertulis sebelum pekerjaan dimulai. Anda bebas memodifikasi dan memelihara sendiri. Satu-satunya batasan:
+                tidak boleh dijual ulang atau didistribusikan ke pihak lain.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Berapa lama proses onboarding?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Empat minggu ke demo pertama yang sudah dikonfigurasi dengan data Anda. Prosesnya: Anda kirim daftar
+                karyawan dan lokasi (titik pin dari HP mana saja sudah cukup), kami konfigurasi aturan shift dan
+                approval, lalu demo berjalan dengan data sungguhan, bukan mockup.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Apakah Winaya sudah termasuk payroll, pajak, dan BPJS?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Belum, dan kami sebutkan ini terang-terangan di semua materi. Winaya berhenti di export Excel yang
+                terformat dan siap diproses aplikasi payroll yang sudah Anda pakai. Proses payroll, pemotongan pajak,
+                iuran BPJS, dan AI liveness/face recognition adalah keputusan cakupan yang disengaja supaya harga
+                tetap masuk akal.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Bagaimana kalau ada bug atau butuh update di tahun kedua, apakah ada biaya support lanjutan?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Ini beli putus, bukan subscription, jadi tidak ada biaya support bulanan wajib yang otomatis jalan
+                terus. Tier Enterprise sudah termasuk 1 bulan monitoring server plus dokumentasi SOP setelah go-live;
+                di luar masa itu (dan di tier Essential/Complete sejak awal), karena source code sepenuhnya milik Anda,
+                perbaikan bug atau penyesuaian bisa dikerjakan tim IT internal Anda, developer mana pun yang Anda
+                percaya, atau tim kami secara terpisah kalau Anda memilih, dengan biaya yang dinegosiasikan sendiri
+                sesuai scope, bukan biaya tersembunyi yang otomatis muncul di tagihan. Satu-satunya biaya rutin yang
+                pasti ada, konsisten dengan perhitungan di atas, adalah hosting server: Rp1,2–3,7 juta per tahun.
+                Winaya bukan software SaaS multi-tenant yang butuh patch terjadwal dari kami, jadi tidak ada
+                ketergantungan siklus update yang memaksa Anda terus membayar kami untuk sekadar menjaga sistem tetap
+                jalan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4.12 LANGKAH SELANJUTNYA ============ -->
+    <section class="section section-navy" id="langkah">
+      <div class="container container-narrow">
+        <p class="eyebrow">Langkah Selanjutnya</p>
+        <h2>Tiga Langkah ke Sistem Absensi yang Jadi Milik Anda</h2>
+        <ol class="steps-list">
+          <li>
+            <span class="step-number">1</span>
+            <div>
+              <h3>Pilih tier awal</h3>
+              <p>Essential, Complete, atau Enterprise, sesuai cara operasional Anda berjalan hari ini, bukan proyeksi tiga tahun lagi.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <div>
+              <h3>Konfirmasi kesepakatan</h3>
+              <p>Syarat kepemilikan dan timeline implementasi disepakati tertulis sebelum pekerjaan dimulai, bukan setelahnya.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <div>
+              <h3>Kirim daftar karyawan & lokasi</h3>
+              <p>Titik pin dari HP mana saja sudah cukup. Demo pertama yang berfungsi siap dalam 4 minggu.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="closing">
+          <p>
+            Dengan selisih biaya sekitar Rp19 juta per tahun dibanding subscription, software ini membayar dirinya
+            sendiri dalam hitungan tahun, dan mengembalikan hari-hari yang selama ini tim HR Anda habiskan untuk
+            mencocokkan foto dan spreadsheet.
+          </p>
+          <a href="https://wa.me/6281311699123?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis%20tentang%20Winaya%20untuk%20perusahaan%20saya."
+             class="btn btn-primary btn-lg" target="_blank" rel="noopener">Konsultasi Gratis via WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <span class="footer-watermark" aria-hidden="true">Winaya</span>
+    <div class="container footer-inner">
+      <p class="nav-logo">Winaya<span class="logo-dot">.</span></p>
+      <p class="footer-tagline">Absensi lapangan yang jadi milik Anda, bukan sewa yang tidak pernah selesai.</p>
+      <p class="footer-contact">
+        <a href="https://wa.me/6281311699123" target="_blank" rel="noopener">WhatsApp 0813-1169-9123</a>
+      </p>
+      <p class="footer-copy">&copy; 2026 Winaya. Seluruh hak cipta.</p>
+    </div>
+  </footer>
+
+  <button type="button" id="back-to-top" class="back-to-top" aria-label="Kembali ke atas">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    background:
+      radial-gradient(ellipse 1200px 700px at 50% -10%, rgba(127,165,147,0.28), transparent 60%),
+      radial-gradient(ellipse 900px 700px at 78% 18%, rgba(143,214,115,0.10), transparent 60%),
+      #0A0F0D;
+    position: relative;
+  }
+  /* Abstrak garis arsitektural — mengisyaratkan mood kantor premium tanpa perlu foto atau brand text */
+  .lines { position:absolute; inset:0; opacity:0.28; }
+  .lines svg { width:100%; height:100%; }
+  .vignette {
+    position:absolute; inset:0;
+    background: linear-gradient(to bottom, rgba(10,15,13,0.15) 0%, rgba(10,15,13,1) 100%);
+  }
+</style>
+</head>
+<body>
+  <div class="lines">
+    <svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#6FB25A" stroke-width="1.5" fill="none">
+        <line x1="0" y1="1080" x2="640" y2="0" opacity="0.5"/>
+        <line x1="200" y1="1080" x2="900" y2="0" opacity="0.35"/>
+        <line x1="1920" y1="1080" x2="1300" y2="0" opacity="0.5"/>
+        <line x1="1700" y1="1080" x2="1050" y2="0" opacity="0.35"/>
+        <line x1="0" y1="820" x2="1920" y2="820" opacity="0.15"/>
+        <line x1="0" y1="260" x2="1920" y2="260" opacity="0.15"/>
+      </g>
+    </svg>
+  </div>
+  <div class="vignette"></div>
+</body>
+</html>

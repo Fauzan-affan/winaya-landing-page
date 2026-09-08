@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:512px; height:512px; overflow:hidden; }
+  body {
+    font-family: Inter, 'Segoe UI', system-ui, sans-serif;
+    background: #052E33;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius: 96px;
+  }
+  .mark {
+    position: relative;
+    font-size: 300px;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1;
+  }
+  .dot {
+    position: absolute;
+    right: -34px;
+    bottom: 6px;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #35C4BB;
+  }
+</style>
+</head>
+<body>
+  <div class="mark">W<span class="dot"></span></div>
+</body>
+</html>
