@@ -55,22 +55,6 @@
     }
   }
 
-  /* ---------- Floating back-to-top ---------- */
-  var backToTop = document.getElementById('back-to-top');
-  function onScrollTopButton() {
-    if (window.scrollY > 600) {
-      backToTop.classList.add('is-visible');
-    } else {
-      backToTop.classList.remove('is-visible');
-    }
-  }
-  window.addEventListener('scroll', onScrollTopButton, { passive: true });
-  onScrollTopButton();
-  backToTop.addEventListener('click', function () {
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-  });
-
   /* ---------- Hero video cross-fade ---------- */
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.innerWidth < 768;
