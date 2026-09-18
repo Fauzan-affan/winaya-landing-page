@@ -1506,3 +1506,31 @@ body:has(#founding-banner) .hero-content { padding-top: 170px; }
   .navbar:has(#founding-banner)::before { height: 150px; }
   body:has(#founding-banner) .hero-content { padding-top: 150px; }
 }
+
+/* ============================================================
+   HALAMAN LEGAL (kebijakan-privasi.html)
+   ============================================================ */
+.legal-page { background: var(--bg-page-alt); }
+.legal-header {
+  background: var(--bg-deep);
+  padding: 18px 0;
+}
+.legal-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.legal-back { color: rgba(255, 255, 255, 0.75); font-size: 0.88rem; font-weight: 600; text-decoration: none; }
+.legal-back:hover { color: var(--accent-bright); }
+.legal { padding: 64px 0 96px; }
+.legal h1 { color: var(--ink-dark); font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: 6px; }
+.legal-updated { font-size: 0.85rem; color: var(--ink-dark-soft); margin-bottom: 32px; }
+.legal h2 { font-size: clamp(1.2rem, 2.2vw, 1.45rem); margin: 44px 0 14px; }
+.legal h3 { font-size: 1.02rem; margin: 22px 0 8px; }
+.legal p, .legal li { color: var(--ink-dark-soft); font-size: 0.98rem; line-height: 1.75; }
+.legal p + p { margin-top: 14px; }
+.legal strong { color: var(--ink-dark); }
+.legal ul { margin: 10px 0 14px 22px; display: grid; gap: 6px; }
+.legal a { color: var(--accent-dark); font-weight: 600; text-underline-offset: 3px; }
+.legal code { font-size: 0.85em; background: rgba(35, 48, 30, 0.07); padding: 1px 6px; border-radius: 5px; }
+.legal-table-wrap { overflow-x: auto; margin: 14px 0 18px; }
+.legal-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.9rem; }
+.legal-table th, .legal-table td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border-onlight); color: var(--ink-dark-soft); vertical-align: top; }
+.legal-table thead th { color: var(--ink-dark); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; border-bottom-color: rgba(35, 48, 30, 0.28); }
+.legal-table tbody tr:last-child td { border-bottom: none; }

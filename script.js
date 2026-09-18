@@ -306,6 +306,21 @@
   }
   initChart();
 
+  /* ---------- Google Analytics: klik WhatsApp sebagai konversi ----------
+     Setiap link WhatsApp diberi atribut data-wa berisi posisinya (hero,
+     navbar, founding, harga_essential, dst.), sehingga di GA4 terlihat
+     tombol mana yang paling banyak menghasilkan kontak. Link dibuka di tab
+     baru, jadi event sempat terkirim tanpa perlu menahan navigasi. */
+  document.querySelectorAll('a[data-wa]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (typeof window.gtag !== 'function') return;
+      window.gtag('event', 'klik_whatsapp', {
+        lokasi_cta: link.getAttribute('data-wa'),
+        link_text: (link.textContent || '').trim().slice(0, 60)
+      });
+    });
+  });
+
   /* ---------- Smooth scroll offset untuk navbar fixed ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener('click', function (e) {
