@@ -1534,3 +1534,349 @@ body:has(#founding-banner) .hero-content { padding-top: 170px; }
 .legal-table th, .legal-table td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border-onlight); color: var(--ink-dark-soft); vertical-align: top; }
 .legal-table thead th { color: var(--ink-dark); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; border-bottom-color: rgba(35, 48, 30, 0.28); }
 .legal-table tbody tr:last-child td { border-bottom: none; }
+
+/* ============================================================
+   KALKULATOR POTENSI KERUGIAN ABSENSI (#kalkulator-kerugian)
+   Panel dua kolom: input di kiri (transparan, garis tipis, pola yang
+   sama dengan .pricing-card), hasil di kanan (tint hijau, pola yang
+   sama dengan .founding-offer). Tidak ada accent bar dekoratif.
+   ============================================================ */
+.calc-panel {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(300px, 400px);
+  gap: 40px;
+  margin-top: 36px;
+  padding: 40px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-onlight);
+  background: var(--bg-page);
+}
+.calc-inputs { display: flex; flex-direction: column; }
+
+/* ---- Field angka & dropdown ---- */
+.calc-field { display: grid; gap: 7px; margin-bottom: 18px; }
+.calc-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-dark);
+}
+.calc-field input[type="number"],
+.calc-field select {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--ink-dark);
+  background: var(--bg-page-alt);
+  border: 1px solid var(--border-onlight);
+  border-radius: 10px;
+  padding: 11px 14px;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.calc-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 38px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2323301E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 15px;
+  cursor: pointer;
+}
+.calc-field input[type="number"]:focus,
+.calc-field select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(111, 178, 90, 0.18);
+}
+
+/* ---- Panel "Sesuaikan asumsi" (native <details>, tanpa JS toggle) ---- */
+.calc-assumptions {
+  margin-top: 6px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-onlight);
+}
+.calc-assumptions summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink-dark);
+}
+.calc-assumptions summary::-webkit-details-marker { display: none; }
+.calc-assumptions summary::after {
+  content: "+";
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--accent-dark);
+  transition: transform 0.25s ease;
+}
+.calc-assumptions[open] summary::after { transform: rotate(45deg); }
+.calc-assumptions-body { display: grid; gap: 20px; margin-top: 20px; }
+
+.calc-slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--ink-dark-soft);
+  margin-bottom: 9px;
+}
+.calc-slider-value {
+  font-weight: 700;
+  color: var(--accent-dark);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+/* Slider native, hanya accent-color yang diatur, tidak ada komponen JS baru. */
+.calc-slider-field input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  height: 4px;
+}
+
+/* ---- Panel hasil (tint hijau, pola sama dengan .founding-offer) ---- */
+.calc-output {
+  padding: 28px 26px;
+  border-radius: calc(var(--radius) - 4px);
+  background: rgba(111, 178, 90, 0.08);
+  border: 1px solid rgba(76, 138, 60, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-content: start;
+}
+.calc-output-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.calc-output-range {
+  font-size: clamp(1.5rem, 3.4vw, 1.95rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--accent-dark);
+  font-variant-numeric: tabular-nums;
+  margin: 6px 0 14px;
+}
+.calc-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  font-size: 0.84rem;
+  color: var(--ink-dark-soft);
+  margin-bottom: 20px;
+}
+.calc-breakdown-item { display: inline-flex; align-items: center; gap: 7px; font-variant-numeric: tabular-nums; }
+.calc-breakdown-sep { color: rgba(35, 48, 30, 0.35); }
+.calc-breakdown-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.calc-dot-leak { background: rgba(35, 48, 30, 0.4); }
+.calc-dot-admin { background: var(--accent-dark); }
+
+.calc-chart-wrap { margin-bottom: 22px; }
+.calc-chart-wrap canvas { width: 100% !important; }
+
+.calc-output .btn { width: 100%; margin-top: auto; }
+
+@media (max-width: 960px) {
+  .calc-panel { grid-template-columns: 1fr; gap: 32px; padding: 30px 24px; }
+}
+@media (max-width: 480px) {
+  .calc-panel { padding: 26px 18px; }
+  /* Separator titik cuma dekoratif (aria-hidden); di layar sempit dua item
+     breakdown wrap terpisah dan titiknya jadi nyasar sendirian di satu baris,
+     jadi disembunyikan dan tiap item dibuat baris penuh sendiri. */
+  .calc-breakdown { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .calc-breakdown-sep { display: none; }
+}
+
+/* ============================================================
+   MODAL: KIRIM RINCIAN PERHITUNGAN KE EMAIL (#calcModal)
+   Hanya formulir kontak (nama, perusahaan, telepon, email); hasil analisis
+   tidak ditampilkan, PDF-nya dikirim lewat email.
+   ============================================================ */
+.calc-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.calc-modal[hidden] { display: none; }
+.calc-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 13, 0.55);
+  backdrop-filter: blur(2px);
+}
+.calc-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  max-height: min(92vh, 720px);
+  overflow-y: auto;
+  background: var(--bg-page);
+  border-radius: var(--radius);
+  padding: 36px 30px 28px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+}
+.calc-modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-onlight);
+  background: var(--bg-page);
+  color: var(--ink-dark-soft);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.calc-modal-close:hover { background: rgba(35, 48, 30, 0.08); color: var(--ink-dark); }
+.calc-modal-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
+  padding-right: 36px;
+}
+.calc-modal-dialog h3 { font-size: 1.3rem; margin-bottom: 8px; color: var(--ink-dark); }
+.calc-modal-intro { font-size: 0.88rem; line-height: 1.6; color: var(--ink-dark-soft); margin-bottom: 22px; }
+
+.calc-form { display: grid; gap: 14px; }
+.calc-form-field { display: grid; gap: 6px; }
+.calc-form-field label { font-size: 0.8rem; font-weight: 600; color: var(--ink-dark); }
+.calc-form-field input {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--ink-dark);
+  background: var(--bg-page-alt);
+  border: 1px solid var(--border-onlight);
+  border-radius: 10px;
+  padding: 11px 14px;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.calc-form-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(111, 178, 90, 0.18);
+}
+.calc-form-field input.is-invalid { border-color: #A33A2A; }
+.calc-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 0.74rem; line-height: 1.55; color: var(--ink-dark-soft); cursor: pointer; }
+.calc-consent input { flex: 0 0 auto; width: 16px; height: 16px; margin-top: 2px; accent-color: var(--accent); }
+.calc-consent a { color: var(--accent-dark); font-weight: 600; text-underline-offset: 3px; }
+.calc-email-status { font-size: 0.82rem; line-height: 1.5; }
+.calc-email-status:empty { display: none; }
+.calc-email-status.is-ok { color: var(--accent-dark); font-weight: 600; }
+.calc-email-status.is-error { color: #A33A2A; font-weight: 600; }
+.calc-form .btn[disabled] { opacity: 0.6; cursor: default; transform: none; box-shadow: none; }
+/* Honeypot: keluar layar tapi tetap terisi otomatis oleh bot. */
+.calc-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+@media (max-width: 640px) {
+  .calc-modal { padding: 16px; }
+  .calc-modal-dialog { padding: 30px 20px 22px; }
+}
+
+/* ---- Tampilan sukses di modal: ikon centang + "Terkirim" + tombol tutup ---- */
+.calc-success { display: grid; justify-items: center; text-align: center; gap: 10px; padding: 18px 0 4px; }
+.calc-success[hidden] { display: none; }
+.calc-success-icon { color: var(--accent-dark); }
+.calc-success-icon circle { stroke-dasharray: 190; stroke-dashoffset: 190; animation: calc-draw 0.6s ease-out 0.05s forwards; }
+.calc-success-icon path { stroke-dasharray: 50; stroke-dashoffset: 50; animation: calc-draw 0.4s ease-out 0.5s forwards; }
+@keyframes calc-draw { to { stroke-dashoffset: 0; } }
+.calc-success h3 { margin: 6px 0 0; font-size: 1.5rem; }
+.calc-success p { font-size: 0.95rem; color: var(--ink-dark-soft); margin-bottom: 14px; }
+.calc-success .btn { margin-top: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .calc-success-icon circle, .calc-success-icon path { animation: none; stroke-dashoffset: 0; }
+}
+
+/* ---- Tombol <button> memakai tampilan .btn yang sama dengan tombol <a> lain ----
+   Elemen <button> membawa border 2px "outset" dan font bawaan browser; tanpa
+   reset ini tombol kalkulator tampak berbeda dari CTA lain di halaman. */
+button.btn {
+  border: 0;
+  font-family: inherit;
+  line-height: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+}
+/* Cincin fokus seragam (hijau), menggantikan cincin oranye bawaan browser. */
+.btn:focus-visible {
+  outline: 3px solid rgba(76, 138, 60, 0.55);
+  outline-offset: 3px;
+}
+
+/* Keterangan isi laporan di bawah tombol kalkulator */
+.calc-cta-note { margin-top: 12px; font-size: 0.7rem; line-height: 1.55; color: var(--ink-dark-soft); }
+
+/* Tanda tanya + penjelasan cara mendapatkan tiap asumsi (tap-friendly, bukan hover) */
+.calc-slider-name { display: inline-flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.calc-help {
+  flex: 0 0 auto;
+  width: 18px; height: 18px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(76, 138, 60, 0.55);
+  background: transparent;
+  color: var(--accent-dark);
+  font: 700 0.7rem/1 var(--font);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  align-self: center;
+}
+.calc-help:hover, .calc-help[aria-expanded="true"] { background: var(--accent-dark); color: #fff; }
+.calc-help:focus-visible { outline: 3px solid rgba(76, 138, 60, 0.55); outline-offset: 2px; }
+/* Tooltip penjelasan: muncul saat hover atau fokus keyboard; di layar sentuh
+   dibuka lewat ketukan (aria-expanded diatur oleh script.js). */
+.calc-slider-name { position: relative; }
+.calc-tip {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  z-index: 20;
+  width: min(320px, calc(100vw - 56px));
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--ink-dark);
+  color: rgba(245, 248, 246, 0.9);
+  font-size: 0.76rem;
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: left;
+  box-shadow: 0 10px 28px rgba(35, 48, 30, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  pointer-events: none;
+}
+.calc-tip strong { color: #fff; }
+.calc-help:focus-visible + .calc-tip,
+.calc-help[aria-expanded="true"] + .calc-tip {
+  opacity: 1; visibility: visible; transform: none;
+}
+@media (hover: hover) {
+  .calc-help:hover + .calc-tip { opacity: 1; visibility: visible; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .calc-tip { transition: none; } }

@@ -306,6 +306,307 @@
   }
   initChart();
 
+  /* ---------- Kalkulator potensi kerugian absensi ----------
+     Semua kalkulasi jalan di client-side, live setiap input/slider berubah,
+     tanpa tombol "Hitung". Formula:
+       Total Payroll Tahunan    = Jumlah Karyawan x Gaji Bulanan x 12
+       Kerugian Kebocoran/Tahun = Total Payroll Tahunan x %Kebocoran
+       Jam Admin/Tahun          = (Jumlah Karyawan / 10) x Jam Admin per Bulan x 12
+       Biaya Admin/Tahun        = Jam Admin/Tahun x Biaya per Jam Admin
+       Estimasi Kerugian/Tahun  = Kerugian Kebocoran/Tahun + Biaya Admin/Tahun
+     Hasil selalu ditampilkan sebagai rentang (estimasi x 0.8 sampai x 1.2),
+     bukan angka tunggal, supaya tidak terkesan presisi palsu. */
+  function initCalculator() {
+    var headcountEl = document.getElementById('calcHeadcount');
+    var methodEl = document.getElementById('calcMethod');
+    var salaryEl = document.getElementById('calcSalary');
+    var leakSlider = document.getElementById('calcLeakSlider');
+    var hoursSlider = document.getElementById('calcHoursSlider');
+    var rateSlider = document.getElementById('calcRateSlider');
+    var leakValueEl = document.getElementById('calcLeakValue');
+    var hoursValueEl = document.getElementById('calcHoursValue');
+    var rateValueEl = document.getElementById('calcRateValue');
+    var rangeOutputEl = document.getElementById('calcRangeOutput');
+    var leakAmountEl = document.getElementById('calcLeakAmount');
+    var adminAmountEl = document.getElementById('calcAdminAmount');
+
+    /* Modal berisi formulir kontak; tombol di kartu kalkulator hanya membukanya. */
+    var modal = document.getElementById('calcModal');
+    var openModalBtn = document.getElementById('calcOpenModalBtn');
+    var lastFocusedEl = null;
+    var currentInputs = null; // input mentah terakhir, dikirim ke server untuk dihitung ulang
+
+    if (!headcountEl || !methodEl || !salaryEl || !modal) return;
+
+    var calcChart = null;
+
+    function formatRupiah(n) {
+      return 'Rp' + Math.round(Math.max(0, n)).toLocaleString('id-ID');
+    }
+    function formatDecimal(n, suffix) {
+      return n.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + suffix;
+    }
+
+    /* Slider asumsi otomatis reset ke default metode yang dipilih, tapi tetap
+       bisa digeser manual setelahnya. */
+    function applyMethodDefaults() {
+      var opt = methodEl.options[methodEl.selectedIndex];
+      leakSlider.value = opt.getAttribute('data-leak');
+      hoursSlider.value = opt.getAttribute('data-hours');
+    }
+
+    function updateSliderLabels() {
+      leakValueEl.textContent = formatDecimal(parseFloat(leakSlider.value), '%');
+      hoursValueEl.textContent = formatDecimal(parseFloat(hoursSlider.value), ' jam');
+      rateValueEl.textContent = formatRupiah(parseFloat(rateSlider.value));
+    }
+
+    function updateChart(leak, admin) {
+      if (typeof Chart === 'undefined') {
+        setTimeout(function () { updateChart(leak, admin); }, 200);
+        return;
+      }
+      var canvas = document.getElementById('calcChart');
+      if (!canvas) return;
+      var chartFont = "'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
+      if (!calcChart) {
+        /* Bar vertikal (bukan horizontal): kolom panel hasil sempit, dan label
+           kategori panjang ("Kebocoran titip absen") kepotong kalau dipasang
+           di sumbu-Y horizontal. Label singkat di sini, rincian lengkapnya
+           sudah ada di baris breakdown teks di atas chart. */
+        calcChart = new Chart(canvas.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: ['Kebocoran', 'Admin'],
+            datasets: [{
+              data: [leak, admin],
+              backgroundColor: ['rgba(35, 48, 30, 0.18)', '#4C8A3C'],
+              hoverBackgroundColor: ['rgba(35, 48, 30, 0.28)', '#5C9C49'],
+              borderRadius: 8,
+              borderSkipped: false,
+              maxBarThickness: 64
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 2.1,
+            animation: false,
+            categoryPercentage: 0.5,
+            barPercentage: 0.9,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#23301E',
+                borderColor: 'rgba(111, 178, 90, 0.45)',
+                borderWidth: 1,
+                padding: 10,
+                cornerRadius: 8,
+                bodyFont: { family: chartFont, size: 12 },
+                callbacks: {
+                  label: function (ctx) { return formatRupiah(ctx.parsed.y) + '/tahun'; }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: 'rgba(35, 48, 30, 0.5)',
+                  font: { family: chartFont, size: 10.5 },
+                  callback: function (v) { return 'Rp' + (v / 1000000).toFixed(0) + 'jt'; }
+                },
+                grid: { color: 'rgba(35, 48, 30, 0.1)', drawTicks: false, borderDash: [3, 4] },
+                border: { display: false }
+              },
+              x: {
+                ticks: { color: 'rgba(35, 48, 30, 0.72)', font: { family: chartFont, size: 11.5, weight: '600' } },
+                grid: { display: false },
+                border: { color: 'rgba(35, 48, 30, 0.18)' }
+              }
+            }
+          }
+        });
+      } else {
+        calcChart.data.datasets[0].data = [leak, admin];
+        calcChart.update('none');
+      }
+    }
+
+    function calculate() {
+      var headcount = Math.max(1, parseInt(headcountEl.value, 10) || 1);
+      var salary = parseFloat(salaryEl.value) || 0;
+      var leakPctValue = parseFloat(leakSlider.value);
+      var leakPct = leakPctValue / 100;
+      var hoursPer10 = parseFloat(hoursSlider.value);
+      var ratePerHour = parseFloat(rateSlider.value);
+
+      var totalPayrollTahunan = headcount * salary * 12;
+      var kerugianKebocoran = totalPayrollTahunan * leakPct;
+      var jamAdminTahunan = (headcount / 10) * hoursPer10 * 12;
+      var biayaAdmin = jamAdminTahunan * ratePerHour;
+      var estimasi = kerugianKebocoran + biayaAdmin;
+      var low = estimasi * 0.8;
+      var high = estimasi * 1.2;
+      currentInputs = {
+        headcount: headcount, method: methodEl.value, salary: salary,
+        leakPct: leakPctValue, hoursPer10: hoursPer10, ratePerHour: ratePerHour
+      };
+
+      updateSliderLabels();
+      rangeOutputEl.textContent = formatRupiah(low) + '–' + formatRupiah(high);
+      leakAmountEl.textContent = Math.round(kerugianKebocoran).toLocaleString('id-ID');
+      adminAmountEl.textContent = Math.round(biayaAdmin).toLocaleString('id-ID');
+      updateChart(kerugianKebocoran, biayaAdmin);
+    }
+
+    methodEl.addEventListener('change', function () {
+      applyMethodDefaults();
+      calculate();
+    });
+    headcountEl.addEventListener('input', calculate);
+    salaryEl.addEventListener('change', calculate);
+    [leakSlider, hoursSlider, rateSlider].forEach(function (el) {
+      el.addEventListener('input', calculate);
+    });
+
+    applyMethodDefaults();
+    calculate();
+
+    /* ---- Modal: buka/tutup ---- */
+    if (openModalBtn) {
+      function openModal() {
+        lastFocusedEl = document.activeElement;
+        modal.hidden = false;
+        document.addEventListener('keydown', onModalKeydown);
+        var firstField = document.getElementById('calcEmail');
+        if (firstField) firstField.focus();
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'buka_modal_kalkulator');
+        }
+      }
+      function closeModal() {
+        modal.hidden = true;
+        document.removeEventListener('keydown', onModalKeydown);
+        if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
+      }
+      function onModalKeydown(e) {
+        if (e.key === 'Escape') closeModal();
+      }
+      openModalBtn.addEventListener('click', openModal);
+      modal.querySelectorAll('[data-modal-close]').forEach(function (el) {
+        el.addEventListener('click', closeModal);
+      });
+    }
+
+    /* ---- Formulir email: kirim PDF ke email ----
+       Modal hanya meminta email (plus persetujuan). Browser mengirim email
+       bersama input mentah kalkulator; server menghitung ulang, membuat PDF,
+       mengirimnya, dan menyimpan email di database (marketing hanya bila
+       kotak opsional dicentang). Hasil analisis sengaja tidak ditampilkan di
+       halaman. Email tidak dikirim ke GA dan tidak disimpan di browser. */
+    var emailForm = document.getElementById('calcEmailForm');
+    if (emailForm) {
+      var emailInput = document.getElementById('calcEmail');
+      var consentInput = document.getElementById('calcEmailConsent');
+      var marketingInput = document.getElementById('calcMarketingConsent');
+      var honeypot = document.getElementById('calcWebsite');
+      var emailSubmit = document.getElementById('calcEmailSubmit');
+      var emailStatus = document.getElementById('calcEmailStatus');
+      var formView = document.getElementById('calcFormView');
+      var successView = document.getElementById('calcSuccess');
+
+      // Setiap modal dibuka lagi, kembali ke tampilan formulir.
+      if (openModalBtn) {
+        openModalBtn.addEventListener('click', function () {
+          successView.hidden = true;
+          formView.hidden = false;
+          emailSubmit.disabled = false;
+          emailSubmit.textContent = 'Kirim PDF ke Email';
+          setStatus('', '');
+        });
+      }
+
+      function setStatus(kind, text) {
+        emailStatus.className = 'calc-email-status' + (kind ? ' is-' + kind : '');
+        emailStatus.textContent = text || '';
+      }
+      function fail(input, text) {
+        emailInput.classList.remove('is-invalid');
+        if (input === emailInput) emailInput.classList.add('is-invalid');
+        if (input) input.focus();
+        setStatus('error', text);
+      }
+
+      emailForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = emailInput.value.trim();
+        if (!/^[^\s@,;<>()]+@[^\s@,;<>()]+\.[^\s@,;<>()]{2,}$/.test(email)) {
+          return fail(emailInput, 'Mohon isi alamat email yang valid.');
+        }
+        if (!consentInput.checked) return fail(consentInput, 'Mohon centang persetujuan pengiriman untuk melanjutkan.');
+        if (!currentInputs) return;
+
+        emailInput.classList.remove('is-invalid');
+        emailSubmit.disabled = true;
+        emailSubmit.textContent = 'Mengirim...';
+        setStatus('', '');
+
+        var payload = Object.assign({
+          email: email, consent: true, marketing: marketingInput.checked,
+          website: honeypot ? honeypot.value : ''
+        }, currentInputs);
+        fetch(emailForm.getAttribute('data-endpoint'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (resp) {
+            return resp.json().catch(function () { return {}; }).then(function (data) { return { ok: resp.ok && data.ok, data: data }; });
+          })
+          .then(function (result) {
+            if (result.ok) {
+              if (typeof window.gtag === 'function') window.gtag('event', 'kirim_email_kalkulator', { marketing_optin: marketingInput.checked ? 'ya' : 'tidak' });
+              // Modal berganti jadi ikon centang + konfirmasi + tombol tutup.
+              emailInput.value = '';
+              formView.hidden = true;
+              successView.hidden = false;
+              document.getElementById('calcSuccessClose').focus();
+            } else {
+              setStatus('error', (result.data && result.data.error) || 'Email belum berhasil dikirim. Silakan coba lagi sebentar lagi.');
+              emailSubmit.disabled = false;
+              emailSubmit.textContent = 'Kirim PDF ke Email';
+            }
+          })
+          .catch(function () {
+            setStatus('error', 'Tidak dapat terhubung ke server. Periksa koneksi Anda, lalu coba lagi.');
+            emailSubmit.disabled = false;
+            emailSubmit.textContent = 'Kirim PDF ke Email';
+          });
+      });
+    }
+  }
+  initCalculator();
+
+  /* ---------- Tanda tanya penjelasan asumsi kalkulator ----------
+     Di desktop tooltip muncul lewat hover/fokus (CSS). Klik/ketuk mengatur
+     aria-expanded supaya tetap bisa dibuka di layar sentuh; ketuk di luar
+     atau tekan Escape untuk menutup. */
+  var helpButtons = document.querySelectorAll('.calc-help');
+  function closeHelp() {
+    helpButtons.forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+  }
+  helpButtons.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      closeHelp();
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+  });
+  document.addEventListener('click', closeHelp);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeHelp(); });
+
   /* ---------- Google Analytics: klik WhatsApp sebagai konversi ----------
      Setiap link WhatsApp diberi atribut data-wa berisi posisinya (hero,
      navbar, founding, harga_essential, dst.), sehingga di GA4 terlihat

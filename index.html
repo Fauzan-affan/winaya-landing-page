@@ -157,6 +157,7 @@
     <nav class="navbar-inner" aria-label="Navigasi utama">
       <a href="#hero" class="nav-logo" aria-label="Winaya, beranda">Winaya<span class="logo-dot">.</span></a>
       <div class="nav-links">
+        <a href="#kalkulator-kerugian" class="nav-link" title="Kalkulator Potensi Kerugian Absensi">Kalkulator</a>
         <a href="#fitur" class="nav-link" title="Fitur Absensi GPS">Fitur</a>
         <a href="#perbandingan-biaya" class="nav-link" title="Perbandingan Biaya Software HR">Biaya</a>
         <a href="#harga" class="nav-link" title="Harga Software HR Sekali Bayar">Harga</a>
@@ -324,6 +325,92 @@
           <p class="stat-number">Rp<span class="count-num" data-target="29">0</span>jt</p>
           <p class="stat-label">harga mulai, sekali bayar</p>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ KALKULATOR POTENSI KERUGIAN ABSENSI ============ -->
+    <section class="section section-light" id="kalkulator-kerugian" aria-label="Kalkulator potensi kerugian absensi">
+      <div class="container">
+        <p class="eyebrow">Kalkulator</p>
+        <h2>Berapa Potensi Kerugian Absensi Tim Anda Setiap Tahun?</h2>
+        <p class="section-intro">Isi tiga angka di bawah ini. Semua asumsi kami perlihatkan dan dapat Anda ubah sendiri.</p>
+
+        <div class="calc-panel">
+          <div class="calc-inputs">
+            <div class="calc-field">
+              <label for="calcHeadcount">Jumlah karyawan lapangan</label>
+              <input type="number" id="calcHeadcount" name="calcHeadcount" min="1" step="1" value="50" inputmode="numeric">
+            </div>
+            <div class="calc-field">
+              <label for="calcMethod">Metode absensi saat ini</label>
+              <select id="calcMethod" name="calcMethod">
+                <option value="kertas" data-leak="4.0" data-hours="1.0">Kertas / tanda tangan manual</option>
+                <option value="fingerprint" data-leak="2.2" data-hours="0.6">Fingerprint di satu lokasi (kantor/site utama)</option>
+                <option value="whatsapp" data-leak="3.0" data-hours="0.8">Laporan WhatsApp / foto manual</option>
+                <option value="app-lain" data-leak="1.0" data-hours="0.3">Aplikasi absensi lain (berlangganan bulanan/tahunan)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label for="calcSalary">Rata-rata gaji karyawan lapangan per bulan</label>
+              <select id="calcSalary" name="calcSalary">
+                <option value="3000000">&lt; Rp 3.500.000</option>
+                <option value="4250000" selected>Rp 3.500.000 &ndash; Rp 5.000.000</option>
+                <option value="6500000">Rp 5.000.000 &ndash; Rp 8.000.000</option>
+                <option value="8500000">&gt; Rp 8.000.000</option>
+              </select>
+            </div>
+
+            <details class="calc-assumptions">
+              <summary>Sesuaikan asumsi</summary>
+              <div class="calc-assumptions-body">
+                <div class="calc-slider-field">
+                  <div class="calc-slider-label">
+                    <span class="calc-slider-name">Kebocoran dari total payroll <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpLeak" aria-label="Cara mendapatkan angka: Kebocoran dari total payroll">?</button><span role="tooltip" class="calc-tip" id="calcHelpLeak">Persentase gaji yang terbayar padahal kehadirannya tidak terbukti (titip absen, jam dibulatkan). <strong>Cara mendapatkannya:</strong> nilai gaji yang tidak terbukti dibagi total payroll periode yang sama, lalu dikali 100.</span></span>
+                    <span class="calc-slider-value" id="calcLeakValue">4,0%</span>
+                  </div>
+                  <input type="range" id="calcLeakSlider" min="0" max="6" step="0.1" value="4.0" aria-label="Persentase kebocoran dari total payroll">
+                </div>
+                <div class="calc-slider-field">
+                  <div class="calc-slider-label">
+                    <span class="calc-slider-name">Jam admin rekap manual / 10 karyawan / bulan <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpHours" aria-label="Cara mendapatkan angka: Jam admin rekap manual per 10 karyawan per bulan">?</button><span role="tooltip" class="calc-tip" id="calcHelpHours">Waktu staf admin untuk merekap absensi setiap 10 karyawan dalam sebulan. <strong>Cara mendapatkannya:</strong> total jam rekap sebulan dibagi jumlah karyawan, lalu dikali 10.</span></span>
+                    <span class="calc-slider-value" id="calcHoursValue">1,0 jam</span>
+                  </div>
+                  <input type="range" id="calcHoursSlider" min="0" max="2" step="0.1" value="1.0" aria-label="Jam admin rekap manual per 10 karyawan per bulan">
+                </div>
+                <div class="calc-slider-field">
+                  <div class="calc-slider-label">
+                    <span class="calc-slider-name">Biaya waktu admin per jam <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpRate" aria-label="Cara mendapatkan angka: Biaya waktu admin per jam">?</button><span role="tooltip" class="calc-tip" id="calcHelpRate">Nilai satu jam kerja staf admin yang merekap absensi. <strong>Cara mendapatkannya:</strong> gaji bulanan staf (termasuk tunjangan tetap) dibagi 173 jam kerja sebulan.</span></span>
+                    <span class="calc-slider-value" id="calcRateValue">Rp75.000</span>
+                  </div>
+                  <input type="range" id="calcRateSlider" min="40000" max="150000" step="5000" value="75000" aria-label="Biaya waktu admin per jam">
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="calc-output">
+            <p class="calc-output-label">Estimasi potensi kerugian per tahun</p>
+            <p class="calc-output-range" id="calcRangeOutput" aria-live="polite">Rp0&ndash;Rp0</p>
+            <p class="calc-breakdown">
+              <span class="calc-breakdown-item"><span class="calc-breakdown-dot calc-dot-leak" aria-hidden="true"></span>Rp<span id="calcLeakAmount">0</span> dari kebocoran titip absen</span>
+              <span class="calc-breakdown-sep" aria-hidden="true">&middot;</span>
+              <span class="calc-breakdown-item"><span class="calc-breakdown-dot calc-dot-admin" aria-hidden="true"></span>Rp<span id="calcAdminAmount">0</span> dari jam admin rekap manual</span>
+            </p>
+            <div class="calc-chart-wrap">
+              <canvas id="calcChart" role="img" aria-label="Grafik batang perbandingan kerugian kebocoran titip absen dan biaya admin rekap manual"></canvas>
+            </div>
+            <button type="button" id="calcOpenModalBtn" class="btn btn-primary btn-block" aria-haspopup="dialog" aria-controls="calcModal">Cek Potensi Kerugian</button>
+            <p class="calc-cta-note">*Laporan PDF yang Anda dapatkan berisi rincian hitungan kerugian (kebocoran payroll dan biaya jam admin), asumsi yang dipakai, estimasi rentang kerugian per tahun, serta rekomendasi paket Winaya beserta perkiraan waktu balik modalnya. Laporan dikirim ke email Anda.</p>
+          </div>
+        </div>
+
+        <p class="footnote">
+          *Asumsi kebocoran payroll akibat "buddy punching"/titip absen mengacu pada riset Nucleus Research (rata-rata
+          2,2% dari total payroll kotor pada metode fingerprint satu lokasi) dan diadaptasi untuk konteks kerja
+          lapangan multi-lokasi di Indonesia. Asumsi jam admin rekap manual adalah estimasi konservatif internal
+          Winaya. Semua angka di atas dapat Anda sesuaikan dengan menggeser slider sesuai kondisi nyata perusahaan
+          Anda; kami tidak mengklaim angka ini presisi untuk setiap bisnis.
+        </p>
       </div>
     </section>
 
@@ -849,6 +936,51 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============ MODAL: KIRIM RINCIAN PERHITUNGAN KE EMAIL ============
+       Modal hanya meminta data kontak. Hasil analisis TIDAK ditampilkan di
+       sini; PDF-nya dikirim ke email lewat endpoint server (winaya-mailer),
+       yang menghitung ulang angkanya sendiri dari input kalkulator.
+       Kolom "website" adalah honeypot anti-bot, tersembunyi dari manusia. -->
+  <div class="calc-modal" id="calcModal" hidden>
+    <div class="calc-modal-backdrop" data-modal-close></div>
+    <div class="calc-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="calcModalTitle">
+      <button type="button" class="calc-modal-close" data-modal-close aria-label="Tutup">&times;</button>
+      <div id="calcFormView">
+      <p class="calc-modal-eyebrow">Rincian Perhitungan &amp; Rekomendasi</p>
+      <h3 id="calcModalTitle">Kirim rincian ke email Anda</h3>
+      <p class="calc-modal-intro">Masukkan email Anda. Rincian perhitungan dan rekomendasi untuk tim Anda akan dikirim dalam bentuk PDF ke email tersebut.</p>
+
+      <form class="calc-form" id="calcEmailForm" data-endpoint="/api/kirim-rincian" novalidate>
+        <div class="calc-form-field">
+          <label for="calcEmail">Email</label>
+          <input type="email" id="calcEmail" name="email" autocomplete="email" inputmode="email" maxlength="120" placeholder="nama@perusahaan.co.id">
+        </div>
+        <div class="calc-hp" aria-hidden="true">
+          <label for="calcWebsite">Situs web</label>
+          <input type="text" id="calcWebsite" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <label class="calc-consent" for="calcEmailConsent">
+          <input type="checkbox" id="calcEmailConsent" name="consent" checked>
+          <span>Saya meminta rincian perhitungan ini dikirim ke email saya, sesuai <a href="/kebijakan-privasi.html" target="_blank" rel="noopener">Kebijakan Privasi</a>.</span>
+        </label>
+        <label class="calc-consent" for="calcMarketingConsent">
+          <input type="checkbox" id="calcMarketingConsent" name="marketing">
+          <span><em>Opsional:</em> saya bersedia menerima informasi produk dan penawaran dari Winaya melalui email ini, dan dapat berhenti berlangganan kapan saja.</span>
+        </label>
+        <p class="calc-email-status" id="calcEmailStatus" role="status" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary btn-block" id="calcEmailSubmit">Kirim PDF ke Email</button>
+      </form>
+      </div>
+
+      <div class="calc-success" id="calcSuccess" role="status" hidden>
+        <svg class="calc-success-icon" viewBox="0 0 64 64" width="72" height="72" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M19 33.5l9.5 9.5L45 24" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Terkirim</h3>
+        <p>Rincian perhitungan sudah dikirim ke email Anda.</p>
+        <button type="button" class="btn btn-primary btn-block" data-modal-close id="calcSuccessClose">Tutup</button>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
   <script src="script.js" defer></script>
