@@ -344,10 +344,10 @@
             <div class="calc-field">
               <label for="calcMethod">Metode absensi saat ini</label>
               <select id="calcMethod" name="calcMethod">
-                <option value="kertas" data-leak="1.0" data-hours="1.0">Kertas / tanda tangan manual</option>
-                <option value="fingerprint" data-leak="1.0" data-hours="0.6">Fingerprint di satu lokasi (kantor/site utama)</option>
-                <option value="whatsapp" data-leak="1.0" data-hours="0.8">Laporan WhatsApp / foto manual</option>
-                <option value="app-lain" data-leak="1.0" data-hours="0.3">Aplikasi absensi lain (berlangganan bulanan/tahunan)</option>
+                <option value="kertas" data-leak="1.0">Kertas / tanda tangan manual</option>
+                <option value="fingerprint" data-leak="1.0">Fingerprint di satu lokasi (kantor/site utama)</option>
+                <option value="whatsapp" data-leak="1.0">Laporan WhatsApp / foto manual</option>
+                <option value="app-lain" data-leak="1.0">Aplikasi absensi lain (berlangganan bulanan/tahunan)</option>
               </select>
             </div>
             <div class="calc-field">
@@ -372,10 +372,10 @@
                 </div>
                 <div class="calc-slider-field">
                   <div class="calc-slider-label">
-                    <span class="calc-slider-name">Jam admin rekap manual / bulan (semua karyawan) <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpHours" aria-label="Cara mendapatkan angka: Jam admin rekap manual per bulan untuk semua karyawan">?</button><span role="tooltip" class="calc-tip" id="calcHelpHours">Total waktu staf admin untuk merekap absensi seluruh karyawan dalam sebulan. <strong>Cara mendapatkannya:</strong> jumlahkan jam kerja semua staf yang mengurus rekap absensi selama satu bulan (mengumpulkan, memeriksa, dan merekap).</span></span>
-                    <span class="calc-slider-value" id="calcHoursValue">4,0 jam</span>
+                    <span class="calc-slider-name">Jam admin rekap manual / bulan <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpHours" aria-label="Cara mendapatkan angka: Jam admin rekap manual per bulan untuk semua karyawan">?</button><span role="tooltip" class="calc-tip" id="calcHelpHours">Total waktu staf admin untuk merekap absensi seluruh karyawan dalam sebulan. <strong>Cara mendapatkannya:</strong> jumlahkan jam kerja semua staf yang mengurus rekap absensi selama satu bulan (mengumpulkan, memeriksa, dan merekap). Nilai awal 8 jam setara 1 hari kerja; rentangnya 1 sampai 40 jam (5 hari kerja).</span><span class="calc-slider-sub">(semua karyawan)</span></span>
+                    <span class="calc-slider-value" id="calcHoursValue">8,0 jam</span>
                   </div>
-                  <input type="range" id="calcHoursSlider" min="0" max="10" step="0.5" value="4" aria-label="Jam admin rekap manual per bulan untuk semua karyawan">
+                  <input type="range" id="calcHoursSlider" min="1" max="40" step="1" value="8" aria-label="Jam admin rekap manual per bulan untuk semua karyawan">
                 </div>
                 <div class="calc-slider-field">
                   <div class="calc-slider-label">

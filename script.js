@@ -350,31 +350,13 @@
     /* Slider asumsi otomatis reset ke default metode yang dipilih, tapi tetap
        bisa digeser manual setelahnya. */
     /* Jam admin dihitung TOTAL per bulan untuk seluruh karyawan (bukan per 10
-       karyawan). Nilai awalnya diturunkan dari jumlah karyawan dan metode
-       terpilih; rentang slider mengikuti jumlah karyawan (maks. 0,2 jam per
-       karyawan). Begitu pengunjung menggeser slider sendiri (hoursTouched),
-       angkanya tidak ditimpa lagi saat jumlah karyawan berubah, hanya dijaga
-       agar tidak melewati batas atas. */
-    var hoursTouched = false;
-    function currentHeadcount() { return Math.max(1, parseInt(headcountEl.value, 10) || 1); }
-    function syncHoursRange() {
-      var headcount = currentHeadcount();
-      var max = Math.max(10, Math.ceil(headcount * 0.2));
-      hoursSlider.max = String(max);
-      var value;
-      if (hoursTouched) {
-        value = Math.min(parseFloat(hoursSlider.value) || 0, max);
-      } else {
-        var per10 = parseFloat(methodEl.options[methodEl.selectedIndex].getAttribute('data-hours')) || 0;
-        value = Math.min(Math.max(1, Math.round(headcount / 10 * per10 * 2) / 2), max);
-      }
-      hoursSlider.value = String(value);
-    }
+       karyawan). Rentang tetap 1 sampai 40 jam (5 hari kerja), nilai awal 8
+       jam (1 hari kerja) untuk semua metode dan jumlah karyawan. */
+    var DEFAULT_ADMIN_HOURS = 8;
     function applyMethodDefaults() {
       var opt = methodEl.options[methodEl.selectedIndex];
       leakSlider.value = opt.getAttribute('data-leak');
-      hoursTouched = false;
-      syncHoursRange();
+      hoursSlider.value = String(DEFAULT_ADMIN_HOURS);
     }
 
     function updateSliderLabels() {
@@ -486,12 +468,8 @@
       applyMethodDefaults();
       calculate();
     });
-    headcountEl.addEventListener('input', function () {
-      syncHoursRange();
-      calculate();
-    });
+    headcountEl.addEventListener('input', calculate);
     salaryEl.addEventListener('change', calculate);
-    hoursSlider.addEventListener('input', function () { hoursTouched = true; });
     [leakSlider, hoursSlider, rateSlider].forEach(function (el) {
       el.addEventListener('input', calculate);
     });
@@ -613,6 +591,131 @@
     }
   }
   initCalculator();
+
+  /* ---------- Combobox kustom untuk dropdown kalkulator ----------
+     Daftar pilihan <select> bawaan digambar oleh sistem operasi dan tidak bisa
+     diberi gaya. Di sini <select> tetap ada (tersembunyi) sebagai sumber nilai,
+     sehingga kode kalkulator yang membaca select.value / event "change" tidak
+     berubah; tampilannya diganti tombol + daftar bergaya Winaya, lengkap dengan
+     dukungan keyboard (panah, Home/End, Enter/Spasi, Escape) dan ARIA. */
+  (function initCalcSelects() {
+    var closers = [];
+    function closeAll(except) { closers.forEach(function (fn) { fn(except); }); }
+    var CHEVRON = '<svg class="calc-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
+    var CHECK = '<svg class="calc-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+
+    document.querySelectorAll('.calc-field select').forEach(function (select) {
+      var label = document.querySelector('label[for="' + select.id + '"]');
+      var wrap = document.createElement('div');
+      wrap.className = 'calc-select';
+      select.parentNode.insertBefore(wrap, select);
+      wrap.appendChild(select);
+      select.classList.add('calc-select-native');
+      select.tabIndex = -1;
+      select.setAttribute('aria-hidden', 'true');
+
+      var listId = select.id + 'List';
+      var trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.id = select.id + 'Trigger';
+      trigger.className = 'calc-select-trigger';
+      trigger.setAttribute('role', 'combobox');
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.setAttribute('aria-controls', listId);
+      if (label) {
+        if (!label.id) label.id = select.id + 'Label';
+        trigger.setAttribute('aria-labelledby', label.id + ' ' + trigger.id);
+      }
+      trigger.innerHTML = '<span class="calc-select-value"></span>' + CHEVRON;
+      var valueEl = trigger.querySelector('.calc-select-value');
+
+      var list = document.createElement('ul');
+      list.id = listId;
+      list.className = 'calc-select-list';
+      list.setAttribute('role', 'listbox');
+      if (label) list.setAttribute('aria-labelledby', label.id);
+      list.hidden = true;
+
+      var items = Array.prototype.map.call(select.options, function (opt, i) {
+        var li = document.createElement('li');
+        li.id = listId + '-' + i;
+        li.setAttribute('role', 'option');
+        var text = document.createElement('span');
+        text.className = 'calc-select-text';
+        text.textContent = opt.text;
+        li.appendChild(text);
+        li.insertAdjacentHTML('beforeend', CHECK);
+        li.addEventListener('mouseenter', function () { setActive(i); });
+        li.addEventListener('mousedown', function (e) { e.preventDefault(); });
+        li.addEventListener('click', function () { choose(i); });
+        list.appendChild(li);
+        return li;
+      });
+      wrap.appendChild(trigger);
+      wrap.appendChild(list);
+
+      var active = -1;
+      function refresh() {
+        valueEl.textContent = select.options[select.selectedIndex].text;
+        items.forEach(function (li, i) {
+          var on = i === select.selectedIndex;
+          li.classList.toggle('is-selected', on);
+          li.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+      }
+      function setActive(i) {
+        active = Math.max(0, Math.min(items.length - 1, i));
+        items.forEach(function (li, k) { li.classList.toggle('is-active', k === active); });
+        trigger.setAttribute('aria-activedescendant', items[active].id);
+        items[active].scrollIntoView({ block: 'nearest' });
+      }
+      function isOpen() { return !list.hidden; }
+      function open() {
+        closeAll(wrap);
+        list.hidden = false;
+        wrap.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        setActive(select.selectedIndex);
+      }
+      function close() {
+        list.hidden = true;
+        wrap.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.removeAttribute('aria-activedescendant');
+      }
+      function choose(i) {
+        if (select.selectedIndex !== i) {
+          select.selectedIndex = i;
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        refresh();
+        close();
+        trigger.focus();
+      }
+
+      trigger.addEventListener('click', function () { if (isOpen()) close(); else open(); });
+      trigger.addEventListener('keydown', function (e) {
+        var k = e.key;
+        if (!isOpen()) {
+          if (k === 'ArrowDown' || k === 'ArrowUp' || k === 'Enter' || k === ' ') { e.preventDefault(); open(); }
+          return;
+        }
+        if (k === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
+        else if (k === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
+        else if (k === 'Home') { e.preventDefault(); setActive(0); }
+        else if (k === 'End') { e.preventDefault(); setActive(items.length - 1); }
+        else if (k === 'Enter' || k === ' ') { e.preventDefault(); choose(active); }
+        else if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); }
+        else if (k === 'Tab') { close(); }
+      });
+      select.addEventListener('change', refresh);
+      if (label) label.addEventListener('click', function (e) { e.preventDefault(); trigger.focus(); });
+      closers.push(function (except) { if (except !== wrap && isOpen()) close(); });
+      document.addEventListener('click', function (e) { if (!wrap.contains(e.target) && isOpen()) close(); });
+      refresh();
+    });
+  })();
 
   /* ---------- Tanda tanya penjelasan asumsi kalkulator ----------
      Di desktop tooltip muncul lewat hover/fokus (CSS). Klik/ketuk mengatur

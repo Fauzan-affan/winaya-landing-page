@@ -1880,3 +1880,85 @@ button.btn {
   .calc-help:hover + .calc-tip { opacity: 1; visibility: visible; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) { .calc-tip { transition: none; } }
+
+/* "(semua karyawan)" di baris baru di bawah label jam admin */
+.calc-slider-sub { flex-basis: 100%; display: block; margin-top: 2px; font-size: 0.74rem; color: var(--ink-dark-soft); }
+
+/* ---- Combobox kustom (menggantikan tampilan <select> bawaan) ---- */
+.calc-select { position: relative; }
+.calc-field select.calc-select-native {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.calc-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  font: 400 0.95rem/1.4 var(--font);
+  color: var(--ink-dark);
+  background: var(--bg-page-alt);
+  border: 1px solid var(--border-onlight);
+  border-radius: 10px;
+  padding: 11px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.calc-select-trigger:hover { border-color: rgba(76, 138, 60, 0.45); }
+.calc-select-trigger:focus-visible,
+.calc-select.is-open .calc-select-trigger {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(111, 178, 90, 0.18);
+}
+.calc-select-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.calc-select-chevron { flex: 0 0 auto; width: 16px; height: 16px; color: var(--accent-dark); transition: transform 0.2s ease; }
+.calc-select.is-open .calc-select-chevron { transform: rotate(180deg); }
+
+.calc-select-list {
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(100% + 6px);
+  z-index: 30;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--bg-page);
+  border: 1px solid var(--border-onlight);
+  border-radius: 14px;
+  box-shadow: 0 14px 36px rgba(35, 48, 30, 0.16), 0 2px 6px rgba(35, 48, 30, 0.06);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(35, 48, 30, 0.24) transparent;
+  animation: calc-pop 0.16s ease-out;
+}
+.calc-select-list[hidden] { display: none; }
+@keyframes calc-pop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.calc-select-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ink-dark-soft);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.calc-select-list li.is-active { background: rgba(111, 178, 90, 0.12); color: var(--ink-dark); }
+.calc-select-list li.is-selected { color: var(--ink-dark); font-weight: 600; }
+.calc-select-check { flex: 0 0 auto; width: 15px; height: 15px; color: var(--accent-dark); opacity: 0; }
+.calc-select-list li.is-selected .calc-select-check { opacity: 1; }
+.calc-field input[type="number"]:hover { border-color: rgba(76, 138, 60, 0.45); }
+@media (prefers-reduced-motion: reduce) {
+  .calc-select-list { animation: none; }
+  .calc-select-chevron, .calc-select-trigger, .calc-select-list li { transition: none; }
+}
