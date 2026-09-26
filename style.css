@@ -1962,3 +1962,13 @@ button.btn {
   .calc-select-list { animation: none; }
   .calc-select-chevron, .calc-select-trigger, .calc-select-list li { transition: none; }
 }
+
+/* Harga coret kampanye Founding Customer di kartu Essential */
+.pricing-card .price-old {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: var(--ink-dark-soft);
+}
+.pricing-card .price-old s { text-decoration-thickness: 2px; text-decoration-color: rgba(35, 48, 30, 0.55); }
+.pricing-card .price-old span { font-size: 0.78rem; margin-left: 6px; }
+.pricing-card .price-old + .price { margin-top: 0; }
