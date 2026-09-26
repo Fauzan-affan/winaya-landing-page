@@ -344,9 +344,9 @@
             <div class="calc-field">
               <label for="calcMethod">Metode absensi saat ini</label>
               <select id="calcMethod" name="calcMethod">
-                <option value="kertas" data-leak="4.0" data-hours="1.0">Kertas / tanda tangan manual</option>
-                <option value="fingerprint" data-leak="2.2" data-hours="0.6">Fingerprint di satu lokasi (kantor/site utama)</option>
-                <option value="whatsapp" data-leak="3.0" data-hours="0.8">Laporan WhatsApp / foto manual</option>
+                <option value="kertas" data-leak="1.0" data-hours="1.0">Kertas / tanda tangan manual</option>
+                <option value="fingerprint" data-leak="1.0" data-hours="0.6">Fingerprint di satu lokasi (kantor/site utama)</option>
+                <option value="whatsapp" data-leak="1.0" data-hours="0.8">Laporan WhatsApp / foto manual</option>
                 <option value="app-lain" data-leak="1.0" data-hours="0.3">Aplikasi absensi lain (berlangganan bulanan/tahunan)</option>
               </select>
             </div>
@@ -366,23 +366,23 @@
                 <div class="calc-slider-field">
                   <div class="calc-slider-label">
                     <span class="calc-slider-name">Kebocoran dari total payroll <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpLeak" aria-label="Cara mendapatkan angka: Kebocoran dari total payroll">?</button><span role="tooltip" class="calc-tip" id="calcHelpLeak">Persentase gaji yang terbayar padahal kehadirannya tidak terbukti (titip absen, jam dibulatkan). <strong>Cara mendapatkannya:</strong> nilai gaji yang tidak terbukti dibagi total payroll periode yang sama, lalu dikali 100.</span></span>
-                    <span class="calc-slider-value" id="calcLeakValue">4,0%</span>
+                    <span class="calc-slider-value" id="calcLeakValue">1,0%</span>
                   </div>
-                  <input type="range" id="calcLeakSlider" min="0" max="6" step="0.1" value="4.0" aria-label="Persentase kebocoran dari total payroll">
+                  <input type="range" id="calcLeakSlider" min="0" max="6" step="0.1" value="1.0" aria-label="Persentase kebocoran dari total payroll">
                 </div>
                 <div class="calc-slider-field">
                   <div class="calc-slider-label">
-                    <span class="calc-slider-name">Jam admin rekap manual / 10 karyawan / bulan <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpHours" aria-label="Cara mendapatkan angka: Jam admin rekap manual per 10 karyawan per bulan">?</button><span role="tooltip" class="calc-tip" id="calcHelpHours">Waktu staf admin untuk merekap absensi setiap 10 karyawan dalam sebulan. <strong>Cara mendapatkannya:</strong> total jam rekap sebulan dibagi jumlah karyawan, lalu dikali 10.</span></span>
-                    <span class="calc-slider-value" id="calcHoursValue">1,0 jam</span>
+                    <span class="calc-slider-name">Jam admin rekap manual / bulan (semua karyawan) <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpHours" aria-label="Cara mendapatkan angka: Jam admin rekap manual per bulan untuk semua karyawan">?</button><span role="tooltip" class="calc-tip" id="calcHelpHours">Total waktu staf admin untuk merekap absensi seluruh karyawan dalam sebulan. <strong>Cara mendapatkannya:</strong> jumlahkan jam kerja semua staf yang mengurus rekap absensi selama satu bulan (mengumpulkan, memeriksa, dan merekap).</span></span>
+                    <span class="calc-slider-value" id="calcHoursValue">4,0 jam</span>
                   </div>
-                  <input type="range" id="calcHoursSlider" min="0" max="2" step="0.1" value="1.0" aria-label="Jam admin rekap manual per 10 karyawan per bulan">
+                  <input type="range" id="calcHoursSlider" min="0" max="10" step="0.5" value="4" aria-label="Jam admin rekap manual per bulan untuk semua karyawan">
                 </div>
                 <div class="calc-slider-field">
                   <div class="calc-slider-label">
                     <span class="calc-slider-name">Biaya waktu admin per jam <button type="button" class="calc-help" aria-expanded="false" aria-controls="calcHelpRate" aria-label="Cara mendapatkan angka: Biaya waktu admin per jam">?</button><span role="tooltip" class="calc-tip" id="calcHelpRate">Nilai satu jam kerja staf admin yang merekap absensi. <strong>Cara mendapatkannya:</strong> gaji bulanan staf (termasuk tunjangan tetap) dibagi 173 jam kerja sebulan.</span></span>
                     <span class="calc-slider-value" id="calcRateValue">Rp75.000</span>
                   </div>
-                  <input type="range" id="calcRateSlider" min="40000" max="150000" step="5000" value="75000" aria-label="Biaya waktu admin per jam">
+                  <input type="range" id="calcRateSlider" min="500" max="500000" step="500" value="75000" aria-label="Biaya waktu admin per jam">
                 </div>
               </div>
             </details>
@@ -405,11 +405,7 @@
         </div>
 
         <p class="footnote">
-          *Asumsi kebocoran payroll akibat "buddy punching"/titip absen mengacu pada riset Nucleus Research (rata-rata
-          2,2% dari total payroll kotor pada metode fingerprint satu lokasi) dan diadaptasi untuk konteks kerja
-          lapangan multi-lokasi di Indonesia. Asumsi jam admin rekap manual adalah estimasi konservatif internal
-          Winaya. Semua angka di atas dapat Anda sesuaikan dengan menggeser slider sesuai kondisi nyata perusahaan
-          Anda; kami tidak mengklaim angka ini presisi untuk setiap bisnis.
+          *Asumsi awal kebocoran payroll akibat "buddy punching"/titip absen sebesar 1% adalah angka konservatif internal Winaya. Sebagai pembanding, riset Nucleus Research menyebut rata-rata 2,2% dari total payroll kotor pada metode fingerprint satu lokasi. Asumsi jam admin rekap manual juga merupakan estimasi konservatif internal Winaya. Semua angka di atas dapat Anda sesuaikan dengan menggeser slider sesuai kondisi nyata perusahaan Anda; kami tidak mengklaim angka ini presisi untuk setiap bisnis.
         </p>
       </div>
     </section>

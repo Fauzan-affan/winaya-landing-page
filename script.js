@@ -349,10 +349,32 @@
 
     /* Slider asumsi otomatis reset ke default metode yang dipilih, tapi tetap
        bisa digeser manual setelahnya. */
+    /* Jam admin dihitung TOTAL per bulan untuk seluruh karyawan (bukan per 10
+       karyawan). Nilai awalnya diturunkan dari jumlah karyawan dan metode
+       terpilih; rentang slider mengikuti jumlah karyawan (maks. 0,2 jam per
+       karyawan). Begitu pengunjung menggeser slider sendiri (hoursTouched),
+       angkanya tidak ditimpa lagi saat jumlah karyawan berubah, hanya dijaga
+       agar tidak melewati batas atas. */
+    var hoursTouched = false;
+    function currentHeadcount() { return Math.max(1, parseInt(headcountEl.value, 10) || 1); }
+    function syncHoursRange() {
+      var headcount = currentHeadcount();
+      var max = Math.max(10, Math.ceil(headcount * 0.2));
+      hoursSlider.max = String(max);
+      var value;
+      if (hoursTouched) {
+        value = Math.min(parseFloat(hoursSlider.value) || 0, max);
+      } else {
+        var per10 = parseFloat(methodEl.options[methodEl.selectedIndex].getAttribute('data-hours')) || 0;
+        value = Math.min(Math.max(1, Math.round(headcount / 10 * per10 * 2) / 2), max);
+      }
+      hoursSlider.value = String(value);
+    }
     function applyMethodDefaults() {
       var opt = methodEl.options[methodEl.selectedIndex];
       leakSlider.value = opt.getAttribute('data-leak');
-      hoursSlider.value = opt.getAttribute('data-hours');
+      hoursTouched = false;
+      syncHoursRange();
     }
 
     function updateSliderLabels() {
@@ -438,19 +460,19 @@
       var salary = parseFloat(salaryEl.value) || 0;
       var leakPctValue = parseFloat(leakSlider.value);
       var leakPct = leakPctValue / 100;
-      var hoursPer10 = parseFloat(hoursSlider.value);
+      var hoursPerMonth = parseFloat(hoursSlider.value);
       var ratePerHour = parseFloat(rateSlider.value);
 
       var totalPayrollTahunan = headcount * salary * 12;
       var kerugianKebocoran = totalPayrollTahunan * leakPct;
-      var jamAdminTahunan = (headcount / 10) * hoursPer10 * 12;
+      var jamAdminTahunan = hoursPerMonth * 12;
       var biayaAdmin = jamAdminTahunan * ratePerHour;
       var estimasi = kerugianKebocoran + biayaAdmin;
       var low = estimasi * 0.8;
       var high = estimasi * 1.2;
       currentInputs = {
         headcount: headcount, method: methodEl.value, salary: salary,
-        leakPct: leakPctValue, hoursPer10: hoursPer10, ratePerHour: ratePerHour
+        leakPct: leakPctValue, hoursPerMonth: hoursPerMonth, ratePerHour: ratePerHour
       };
 
       updateSliderLabels();
@@ -464,8 +486,12 @@
       applyMethodDefaults();
       calculate();
     });
-    headcountEl.addEventListener('input', calculate);
+    headcountEl.addEventListener('input', function () {
+      syncHoursRange();
+      calculate();
+    });
     salaryEl.addEventListener('change', calculate);
+    hoursSlider.addEventListener('input', function () { hoursTouched = true; });
     [leakSlider, hoursSlider, rateSlider].forEach(function (el) {
       el.addEventListener('input', calculate);
     });
