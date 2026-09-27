@@ -1,0 +1,16 @@
+# Proyek compose TERPISAH dari stack hr-system: tidak ikut naik/turun saat HR
+# di-deploy, dan hanya menumpang jaringan Docker agar Caddy dapat
+# menjangkaunya lewat nama "winaya-mailer". Tidak ada port yang dibuka ke host.
+services:
+  winaya-mailer:
+    build: .
+    container_name: winaya-mailer
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/data
+    networks: [hrnet]
+networks:
+  hrnet:
+    name: hrsystem_default
+    external: true

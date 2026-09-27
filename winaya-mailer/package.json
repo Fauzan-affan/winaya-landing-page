@@ -1,0 +1,9 @@
+{
+  "name": "winaya-mailer",
+  "version": "1.0.0",
+  "description": "Endpoint kecil untuk mengirim PDF Rincian Perhitungan & Rekomendasi Winaya ke email pengunjung",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "test": "node test.js", "export": "node export.js" },
+  "engines": { "node": ">=24" },
+  "dependencies": { "pdfkit": "^0.15.0" }
+}
