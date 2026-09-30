@@ -1,0 +1,189 @@
+/* ============================================================
+   Halaman Tampilan Produk (produk.html) — mengikuti DESIGN-SYSTEM.md.
+   Tidak mengubah style.css: komponen di sini khusus halaman ini,
+   memakai token warna/spacing/radius yang sama (:root di style.css).
+   ============================================================ */
+
+/* ---------- Hero halaman (krem, tanpa video/dunia gelap) ---------- */
+.produk-hero {
+  padding-top: 170px;
+}
+.produk-hero h1 { color: var(--ink-dark); }
+@media (max-width: 640px) {
+  .produk-hero { padding-top: 140px; }
+}
+.produk-lede {
+  max-width: 68ch;
+  color: var(--ink-dark-soft);
+  margin: 14px 0 22px;
+}
+
+/* ---------- Role chip (dipakai di hero legend & tiap kartu) ---------- */
+.rolechip {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.rolechip.role-k { background: rgba(111, 178, 90, 0.14); color: var(--accent-dark); }
+.rolechip.role-h { background: transparent; border: 1px solid rgba(35, 48, 30, 0.28); color: var(--ink-dark-soft); }
+
+.produk-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+
+/* ---------- TOC: pill links, mengikuti radius 999px tombol/badge ---------- */
+.produk-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+.produk-toc a {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid var(--border-onlight);
+  border-radius: 999px;
+  color: var(--ink-dark);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.produk-toc a:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+
+/* ---------- Section per alur ---------- */
+.produk-section {
+  background: var(--bg-page-alt);
+  color: var(--ink-dark);
+  padding: 56px 0;
+}
+.produk-sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 22px;
+  scroll-margin-top: 100px;
+}
+.produk-sec-num {
+  font-weight: 700;
+  font-size: 2.1rem;
+  color: var(--accent-dark);
+  min-width: 52px;
+  line-height: 1;
+}
+.produk-sec-head h2 { margin-bottom: 6px; font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--ink-dark); }
+.produk-sec-sub { color: var(--ink-dark-soft); max-width: 75ch; margin: 0; }
+.produk-sec-count {
+  margin-left: auto;
+  align-self: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dark-soft);
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .produk-sec-head { flex-wrap: wrap; }
+  .produk-sec-count { margin-left: 0; }
+}
+
+/* ---------- Rail horizontal ---------- */
+.produk-rail {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(35, 48, 30, 0.24) transparent;
+}
+.produk-rail:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 4px; }
+.produk-rail::-webkit-scrollbar { height: 6px; }
+.produk-rail::-webkit-scrollbar-track { background: transparent; }
+.produk-rail::-webkit-scrollbar-thumb { background: rgba(35, 48, 30, 0.2); border-radius: 999px; }
+.produk-rail:hover::-webkit-scrollbar-thumb { background: rgba(35, 48, 30, 0.36); }
+
+.produk-arrow {
+  align-self: center;
+  flex: 0 0 auto;
+  padding: 0 6px;
+  font-size: 22px;
+  color: rgba(35, 48, 30, 0.3);
+}
+@media (max-width: 640px) { .produk-arrow { display: none; } }
+
+/* ---------- Kartu screenshot (mengikuti .fitur-card) ---------- */
+.produk-card {
+  flex: 0 0 auto;
+  width: 230px;
+  background: transparent;
+  border: 1px solid var(--border-onlight);
+  border-radius: var(--radius);
+  padding: 16px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.produk-card.web { width: 340px; }
+.produk-card:hover {
+  border-color: rgba(35, 48, 30, 0.3);
+  background: rgba(111, 178, 90, 0.05);
+}
+.produk-card-head { display: flex; align-items: center; gap: 8px; }
+.produk-card h3 { font-size: 0.95rem; margin: 0; color: var(--ink-dark); }
+
+.stepnum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 12px;
+  flex: 0 0 auto;
+}
+.stepnum.role-k { background: var(--accent-dark); color: #fff; }
+.stepnum.role-h { background: var(--ink-dark); color: var(--bg-page-alt); }
+
+.produk-figure {
+  margin: 0;
+  border-radius: 14px;
+  border: 1px solid var(--border-onlight);
+  overflow: hidden;
+  background: var(--bg-page);
+  cursor: zoom-in;
+}
+.produk-figure img { width: 100%; height: auto; display: block; }
+
+.produk-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-dark-soft);
+}
+
+/* ---------- Lightbox ---------- */
+.produk-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 15, 0.88);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  z-index: 200;
+  padding: 40px 20px;
+  cursor: zoom-out;
+}
+.produk-lightbox.open { display: flex; }
+.produk-lightbox img { max-width: min(760px, 95vw); height: auto; border-radius: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .produk-card, .produk-toc a { transition: none; }
+}
